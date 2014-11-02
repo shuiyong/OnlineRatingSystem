@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+                            http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+    
+    <!-- Database -->
+    <jdbc:embedded-database id="datasource" type="HSQL" >
+        <!-- MYSQL compatibility -->
+        <jdbc:script location="classpath:hsql.sql" />
+    </jdbc:embedded-database>
+    
+    <!-- Entity Manager -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="datasource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect"/>
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="true"/>
+            </bean>
+        </property>
+        <property name="packagesToScan" value="edu.baylor.ecs.softproj.model" />
+    </bean>
+    
+    <!-- Transaction Manager -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    
+    <!-- Spring Data -->
+    <jpa:repositories base-package="edu.baylor.ecs.softproj.repository"></jpa:repositories>
+    
+    <!-- Spring annotation configuration -->
+    <context:annotation-config />
+    <context:component-scan base-package="edu.baylor.ecs.softproj" />
+    <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+    
+</beans>

@@ -1,0 +1,40 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <!-- enable annotations -->
+    <global-method-security secured-annotations="enabled">
+    </global-method-security>
+  
+    <!-- login manager and password encoding settings -->
+    <beans:bean id="customUserDetailsService" class="edu.baylor.ecs.softproj.service.impl.UserDetailsServiceImpl"/>
+    
+    <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+    
+    <authentication-manager alias="authenticationManager" >        
+        <authentication-provider user-service-ref="customUserDetailsService" >
+            <password-encoder ref="encoder" />
+        </authentication-provider>
+    </authentication-manager>
+    
+    <!-- access rules -->
+    <http auto-config="true" access-denied-page="/admin/login.xhtml">
+        <intercept-url pattern="/admin/login.xhtml" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+        <form-login
+            login-processing-url="/j_spring_security_check"
+            login-page="/admin/login.xhtml"
+            default-target-url="/admin/"
+            authentication-failure-url="/admin/login.xhtml?error=1"
+            always-use-default-target="true"
+        />
+        <logout
+            logout-url="/j_spring_security_logout"
+            logout-success-url="/admin/login.xhtml" />
+    </http>
+    
+</beans:beans>
