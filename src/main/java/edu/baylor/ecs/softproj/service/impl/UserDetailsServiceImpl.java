@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * This class takes care of the authentification process and decides which roles
+ * This class takes care of the authentication process and decides which roles
  * users have.
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>

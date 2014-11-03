@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
-public class FacesUtil {
+public class FacesMessages {
 
     /**
      * Adds a message to the current JSF instance.
