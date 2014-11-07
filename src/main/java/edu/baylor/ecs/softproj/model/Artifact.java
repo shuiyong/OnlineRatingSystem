@@ -1,60 +1,92 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.baylor.ecs.softproj.model;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.*;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * This class represents the Artifact in the database
+ *
  * @author yong shui <yong_shui@baylor.edu, shuiyong90@gmail.com>
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
-@Table(name = "artifact")
-@AttributeOverride(name = "id", column = @Column(name = "artifactId"))
+@Entity
 public class Artifact extends AbstractEntity {
-    @Column(name = "name", length = 20, nullable = false)
+
+    @Column(length = 50, nullable = false)
     private String name;
-    @Column(name = "lecturerRating")
-    private int lecturerRating; // double or integer?
-    @Column(name = "path", length = 200, nullable = false)
-    private String path;
-    
-    @OneToMany
-    private RPMAssignment rpmAssginment;
-    
-    public Artifact(){}
-    
-    public Artifact(String name, int lecturerRating, String path,RPMAssignment rpmAssginment){
-        this.name = name;
-        this.lecturerRating = lecturerRating;
-        this.path = path;
-        this.rpmAssginment = rpmAssginment;
+
+    private int lecturerRating;
+
+    @Column(length = 200, nullable = false)
+    private String filePath;
+
+    @OneToMany(mappedBy = "artifact")
+    private Set<RPMAssignment> rpmAssginments;
+
+    @ManyToOne
+    private Team team;
+
+    @ManyToOne
+    private User submitter;
+
+    public Artifact() {
     }
-    
-    public String getName(){
+
+    public Artifact(String name, String path, Team team, User submitter) {
+        this.name = name;
+        this.filePath = path;
+        this.team = team;
+        this.submitter = submitter;
+    }
+
+    public String getName() {
         return name;
     }
-    
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public String getPath(){
-        return path;
+
+    public String getFilePath() {
+        return filePath;
     }
-    
-    public void setPath(String path){
-        this.path = path;
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
-    
-    public int getLecturerRating(){
+
+    public int getLecturerRating() {
         return lecturerRating;
     }
-    
-    public void setLecturerRating(int lecturerRating){
+
+    public void setLecturerRating(int lecturerRating) {
         this.lecturerRating = lecturerRating;
+    }
+
+    public Set<RPMAssignment> getRpmAssginments() {
+        return rpmAssginments;
+    }
+
+    public void setRpmAssginments(Set<RPMAssignment> rpmAssginments) {
+        this.rpmAssginments = rpmAssginments;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public User getSubmitter() {
+        return submitter;
+    }
+
+    public void setSubmitter(User submitter) {
+        this.submitter = submitter;
     }
 }

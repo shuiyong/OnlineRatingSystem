@@ -1,43 +1,45 @@
 package edu.baylor.ecs.softproj.model;
 
 import java.util.Date;
-import javax.persistence.*;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
- * This class represents the "Presentation" table in the database.
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
 @Entity
-@Table(name = "reviewassignment")
-@AttributeOverride(name = "id", column = @Column(name = "reviewassignmentid"))
 public class ReviewAssignment extends AbstractEntity {
 
-    @Column(name = "lecturerrating")
-    private Integer lecturerRating;
+    private Integer lecturerToReviewRating;
 
-    @Column(name = "deadline")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date deadline;
-    
+
     @ManyToOne
     private User reviewer;
 
-    
+    @ManyToOne
+    private RPMAssignment rpmAssignment;
+
+    @OneToMany(mappedBy = "reviewAssignment")
+    private Set<Review> reviews;
+
     public ReviewAssignment() {
     }
 
-    public ReviewAssignment(Date deadline, User reviewer) {
+    public ReviewAssignment(Date deadline, User reviewer, RPMAssignment rpmAssignment) {
         this.deadline = deadline;
         this.reviewer = reviewer;
-    }
-
-    public Integer getLecturerRating() {
-        return lecturerRating;
-    }
-
-    public void setLecturerRating(Integer lecturerRating) {
-        this.lecturerRating = lecturerRating;
+        this.rpmAssignment = rpmAssignment;
     }
 
     public Date getDeadline() {
@@ -55,6 +57,29 @@ public class ReviewAssignment extends AbstractEntity {
     public void setReviewer(User reviewer) {
         this.reviewer = reviewer;
     }
-    
+
+    public Integer getLecturerToReviewRating() {
+        return lecturerToReviewRating;
+    }
+
+    public void setLecturerToReviewRating(Integer lecturerToReviewRating) {
+        this.lecturerToReviewRating = lecturerToReviewRating;
+    }
+
+    public RPMAssignment getRpmAssignment() {
+        return rpmAssignment;
+    }
+
+    public void setRpmAssignment(RPMAssignment rpmAssignment) {
+        this.rpmAssignment = rpmAssignment;
+    }
+
+    public Set<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Review> reviews) {
+        this.reviews = reviews;
+    }
 
 }

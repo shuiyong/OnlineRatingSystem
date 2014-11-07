@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -20,7 +20,7 @@ public abstract class AbstractEntity implements Serializable {
     public Integer getId() {
         return id;
     }
-   
+
     protected void setId(final Integer id) {
         this.id = id;
     }

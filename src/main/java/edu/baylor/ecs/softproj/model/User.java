@@ -1,31 +1,52 @@
 package edu.baylor.ecs.softproj.model;
 
-import javax.persistence.*;
+import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  * This class represents the "User" table in the database.
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
 @Entity
-@Table(name = "myuser")
-@AttributeOverride(name = "id", column = @Column(name = "userId"))
 public class User extends AbstractEntity {
 
-    @Column(name = "email", length = 20, nullable = false)
+    @Column(length = 20, nullable = false)
     private String email;
 
-    @Column(name = "password", length = 60, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
 
-    @Column(name = "firstname")
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name = "lastname")
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(name = "isadmin")
+    @Column(nullable = false)
     private Boolean isAdmin;
+
+    @ManyToMany(mappedBy = "canBeViewdBy")
+    private Set<Review> canView;
+
+    @ManyToMany(mappedBy = "teamMembers")
+    private Set<Team> memeberOf;
+
+    @OneToMany(mappedBy = "lecturer")
+    private Set<Course> lecturerOf;
+
+    @OneToMany(mappedBy = "rpm")
+    private Set<Team> rpmOf;
+
+    @OneToMany(mappedBy = "submitter")
+    private Set<Artifact> submitterOf;
+
+    @OneToMany(mappedBy = "reviewer")
+    private Set<ReviewAssignment> reviewerOf;
 
     public User() {
     }
@@ -76,6 +97,54 @@ public class User extends AbstractEntity {
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public Set<Review> getCanView() {
+        return canView;
+    }
+
+    public void setCanView(Set<Review> canView) {
+        this.canView = canView;
+    }
+
+    public Set<Team> getMemeberOf() {
+        return memeberOf;
+    }
+
+    public void setMemeberOf(Set<Team> memeberOf) {
+        this.memeberOf = memeberOf;
+    }
+
+    public Set<Course> getLecturerOf() {
+        return lecturerOf;
+    }
+
+    public void setLecturerOf(Set<Course> lecturerOf) {
+        this.lecturerOf = lecturerOf;
+    }
+
+    public Set<Team> getRpmOf() {
+        return rpmOf;
+    }
+
+    public void setRpmOf(Set<Team> rpmOf) {
+        this.rpmOf = rpmOf;
+    }
+
+    public Set<Artifact> getSubmitterOf() {
+        return submitterOf;
+    }
+
+    public void setSubmitterOf(Set<Artifact> submitterOf) {
+        this.submitterOf = submitterOf;
+    }
+
+    public Set<ReviewAssignment> getReviewerOf() {
+        return reviewerOf;
+    }
+
+    public void setReviewerOf(Set<ReviewAssignment> reviewerOf) {
+        this.reviewerOf = reviewerOf;
     }
 
 }

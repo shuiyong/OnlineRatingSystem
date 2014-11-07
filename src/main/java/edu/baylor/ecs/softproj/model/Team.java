@@ -5,23 +5,77 @@
  */
 package edu.baylor.ecs.softproj.model;
 
-import javax.persistence.*;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
 @Entity
-@Table(name = "team")
-@AttributeOverride(name = "id", column = @Column(name = "teamid"))
 public class Team extends AbstractEntity {
+
     @ManyToOne
     private Course course;
-    
-    @OneToOne // I assume every team has one RPM
-    private User RPM;
-    public Team(Course course, User RPM){
-        this.course = course;
-        this.RPM = RPM;
+
+    @ManyToOne
+    private User rpm;
+
+    @ManyToMany
+    @JoinTable(
+        name="team_member",
+        joinColumns=@JoinColumn(name="team_id"),
+        inverseJoinColumns=@JoinColumn(name="user_id")
+    )
+    private Set<User> teamMembers;
+
+    @OneToMany(mappedBy = "team")
+    private Set<Artifact> artifacts;
+
+    public Team() {
     }
+
+    public Set<User> getTeamMembers() {
+        return teamMembers;
+    }
+
+    public void setTeamMembers(Set<User> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
+
+    public Set<Artifact> getArtifacts() {
+        return artifacts;
+    }
+
+    public void setArtifacts(Set<Artifact> artifacts) {
+        this.artifacts = artifacts;
+    }
+
+    public Team(Course course, User rpm) {
+        this.course = course;
+        this.rpm = rpm;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public User getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(User rpm) {
+        this.rpm = rpm;
+    }
+
 }

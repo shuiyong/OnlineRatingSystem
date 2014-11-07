@@ -1,65 +1,74 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.baylor.ecs.softproj.model;
 
-import javax.persistence.*;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
- * @author yong shui <yong_shui@baylor.edu
+ * @author yong shui <yong_shui@baylor.edu @author Petr Smrc
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
-
-@Table(name = "rpmassignment")
-@AttributeOverride(name = "id", column = @Column(name = "rpmassignmentid"))
+@Entity
 public class RPMAssignment extends AbstractEntity {
-    @Column(name = "lecturerToRPMRating")
+
     private Integer lecturerToRPMRating;
-    
-    @Column(name = "RPMToArtifactRating")
+
     private Integer RPMToArtifactRating;
-    
-    @Column(name = "commend")
-    private String commend;
-    
-    @OneToMany
-    private ReviewAssignment reviewAssignment; //  add List<ReviewAssignment>
-    
-    public RPMAssignment(){}
-    
-    public RPMAssignment(Integer lecturerToRPMRating, 
-            Integer RPMToArtifactRating, 
-            String commend, 
-            ReviewAssignment reviewAssignment){
-        this.lecturerToRPMRating = lecturerToRPMRating;
-        this.RPMToArtifactRating = RPMToArtifactRating;
-        this.commend = commend;
-        this.reviewAssignment = reviewAssignment;
+
+    private String comment;
+
+    @OneToMany(mappedBy = "rpmAssignment")
+    private Set<ReviewAssignment> reviewAssignments;
+
+    @ManyToOne
+    private Artifact artifact;
+
+    public RPMAssignment() {
     }
-    
-    public void setLecturerToRPMRating(int lecturerToRPMRating){
-        this.lecturerToRPMRating = lecturerToRPMRating;
+
+    public RPMAssignment(Artifact artifact) {
+        this.artifact = artifact;
     }
-    
-    public void setRPMToArtifactRating(int RPMToArtifactRating){
-        this.RPMToArtifactRating = RPMToArtifactRating;
-    }
-    
-    public void setCommend(String commend){
-        this.commend = commend;
-    }
-    
-    public Integer getLecturerToRPMRaing(){
+
+    public Integer getLecturerToRPMRating() {
         return lecturerToRPMRating;
     }
-    
-    public Integer RPMToArtifactRating(){
+
+    public void setLecturerToRPMRating(Integer lecturerToRPMRating) {
+        this.lecturerToRPMRating = lecturerToRPMRating;
+    }
+
+    public Integer getRPMToArtifactRating() {
         return RPMToArtifactRating;
     }
-    
-    public String getCommend(){
-        return commend;
+
+    public void setRPMToArtifactRating(Integer RPMToArtifactRating) {
+        this.RPMToArtifactRating = RPMToArtifactRating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Set<ReviewAssignment> getReviewAssignments() {
+        return reviewAssignments;
+    }
+
+    public void setReviewAssignments(Set<ReviewAssignment> reviewAssignments) {
+        this.reviewAssignments = reviewAssignments;
+    }
+
+    public Artifact getArtifact() {
+        return artifact;
+    }
+
+    public void setArtifact(Artifact artifact) {
+        this.artifact = artifact;
     }
 }
