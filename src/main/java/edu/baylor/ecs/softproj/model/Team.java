@@ -17,14 +17,17 @@ import javax.persistence.OneToMany;
  *
  * @author yong shui <yong_shui@baylor.edu>
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
+ * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 @Entity
 public class Team extends AbstractEntity {
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
 
     @ManyToOne
+    @JoinColumn(name = "rpm_id")
     private User rpm;
 
     @ManyToMany

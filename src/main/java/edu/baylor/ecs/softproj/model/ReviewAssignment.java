@@ -25,9 +25,11 @@ public class ReviewAssignment extends AbstractEntity {
     private Date deadline;
 
     @ManyToOne
+    @JoinColumn(name = "reviewer_id")
     private User reviewer;
 
     @ManyToOne
+    @JoinColumn(name = "rpm_assignment_id")
     private RPMAssignment rpmAssignment;
 
     @OneToMany(mappedBy = "reviewAssignment")

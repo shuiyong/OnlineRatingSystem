@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * This class represents the "User" table in the database.
@@ -12,6 +13,7 @@ import javax.persistence.OneToMany;
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
+@Table(name = "myuser")
 @Entity
 public class User extends AbstractEntity {
 
@@ -30,11 +32,11 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     private Boolean isAdmin;
 
-    @ManyToMany(mappedBy = "canBeViewdBy")
+    @ManyToMany(mappedBy = "canBeViewedBy")
     private Set<Review> canView;
 
     @ManyToMany(mappedBy = "teamMembers")
-    private Set<Team> memeberOf;
+    private Set<Team> memberOf;
 
     @OneToMany(mappedBy = "lecturer")
     private Set<Course> lecturerOf;
@@ -108,11 +110,11 @@ public class User extends AbstractEntity {
     }
 
     public Set<Team> getMemeberOf() {
-        return memeberOf;
+        return memberOf;
     }
 
     public void setMemeberOf(Set<Team> memeberOf) {
-        this.memeberOf = memeberOf;
+        this.memberOf = memeberOf;
     }
 
     public Set<Course> getLecturerOf() {

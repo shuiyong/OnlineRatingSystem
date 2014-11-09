@@ -3,6 +3,7 @@ package edu.baylor.ecs.softproj.model;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
  *
  * @author yong shui <yong_shui@baylor.edu, shuiyong90@gmail.com>
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
+ * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 @Entity
 public class Artifact extends AbstractEntity {
@@ -27,9 +29,11 @@ public class Artifact extends AbstractEntity {
     private Set<RPMAssignment> rpmAssginments;
 
     @ManyToOne
+    @JoinColumn(name = "team_id")
     private Team team;
 
     @ManyToOne
+    @JoinColumn(name = "submitter_id")
     private User submitter;
 
     public Artifact() {

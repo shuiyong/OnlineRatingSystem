@@ -2,6 +2,7 @@ package edu.baylor.ecs.softproj.model;
 
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -9,6 +10,7 @@ import javax.persistence.OneToMany;
  *
  * @author yong shui <yong_shui@baylor.edu @author Petr Smrc
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
+ * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 @Entity
 public class RPMAssignment extends AbstractEntity {
@@ -23,6 +25,7 @@ public class RPMAssignment extends AbstractEntity {
     private Set<ReviewAssignment> reviewAssignments;
 
     @ManyToOne
+    @JoinColumn(name = "artifact_id")
     private Artifact artifact;
 
     public RPMAssignment() {

@@ -16,6 +16,7 @@ import javax.persistence.TemporalType;
  *
  * @author yong shui<yong_shui@baylor.edu>
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
+ * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 @Entity
 public class Review extends AbstractEntity {
@@ -30,6 +31,7 @@ public class Review extends AbstractEntity {
     private String content;
 
     @ManyToOne
+    @JoinColumn(name = "review_assignment_id")
     private ReviewAssignment reviewAssignment;
 
     @ManyToMany
@@ -38,7 +40,7 @@ public class Review extends AbstractEntity {
         joinColumns=@JoinColumn(name="review_id"),
         inverseJoinColumns=@JoinColumn(name="user_id")
     )
-    private Set<User> canBeViewdBy;
+    private Set<User> canBeViewedBy;
 
     public Review() {
     }
@@ -82,11 +84,11 @@ public class Review extends AbstractEntity {
     }
 
     public Set<User> getCanBeViewdBy() {
-        return canBeViewdBy;
+        return canBeViewedBy;
     }
 
     public void setCanBeViewdBy(Set<User> canBeViewdBy) {
-        this.canBeViewdBy = canBeViewdBy;
+        this.canBeViewedBy = canBeViewdBy;
     }
 
 }
