@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Assign Artifact</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="artifactId" value="#{dashboardBean.artifactId}"/>
+        </f:metadata>
+        <h1 id="header">Assign Artifact: #{param['artifactId']}</h1>
+        <a href="/dashboard.xhtml">Dashboard</a>
+        <h:form>
+            <h:selectManyListbox value="#{dashboardBean.reviewerIds}">
+                <c:forEach items="#{dashboardBean.candidateReviewers}" var="candidate">
+                    <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.firstName} #{candidate.lastName}"/>
+                </c:forEach>
+            </h:selectManyListbox>
+            <p:calendar value="#{dashboardBean.deadline}" pattern="MM/dd/yyyy HH:mm:ss"/>
+            <h:commandButton action="#{dashboardBean.assignArtifact}" value="Confirm"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

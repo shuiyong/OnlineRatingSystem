@@ -11,10 +11,21 @@
     <ui:define name="title">Dashboard</ui:define>
 
     <ui:define name="content">
-        <h:form>
-            <h1 id="header">Dashboard</h1>
-            Yep, you are inside!
-        </h:form>
+        <h1 id="header">Dashboard</h1>
+        <p>Yep, you are inside!</p>
         <a href="/j_spring_security_logout">Logout</a>
+        <ui:fragment rendered="#{dashboardBean.teams.size() != 0}">            
+            <c:forEach items="#{dashboardBean.teams}" var="team">
+                <div style="border:1px black solid; margin:10px; padding:10px;">
+                    <h3>You are RPM of: Team #{team.id}</h3>
+                    <h4>Unassigned artifacts:</h4>
+                    <ul>
+                        <c:forEach items="#{dashboardBean.getUnassignedArtifacts(team)}" var="artifact">
+                            <li><a href="/assignArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:forEach>
+        </ui:fragment>
     </ui:define>
 </ui:composition>

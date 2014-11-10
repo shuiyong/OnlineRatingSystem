@@ -5,15 +5,18 @@
  */
 package edu.baylor.ecs.softproj.service;
 import  edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.RPMAssignment;
 import  edu.baylor.ecs.softproj.model.User;
+import java.util.Date;
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
+ * @author  Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 public interface ArtifactService {
-    public void submitArtifact(Artifact artfiact);
-    public void assgnArtifact();
-    public void getResult(Artifact artfiact);
-    public void rateArtifact(Artifact artifact);
-    public void getArtifacts(User user);
+    
+    public void assgnArtifact(RPMAssignment rpmAssignment, User u, Date deadline);
+    
+    public Artifact findById(Integer id);
+    
 }
