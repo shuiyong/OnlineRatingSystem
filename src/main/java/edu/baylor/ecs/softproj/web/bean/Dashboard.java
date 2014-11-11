@@ -56,12 +56,14 @@ public class Dashboard {
         return artifacts;
     }
     
-    public void assignArtifact() {
+    public String assignArtifact() {
         RPMAssignment rpmAssignment = rpmAssignmentService.create(artifactService.findById(artifactId));
         for (String id : reviewerIds) {
             User u = userService.getById(Integer.parseInt(id));
             artifactService.assgnArtifact(rpmAssignment, u, deadline);
         }
+        
+        return "/dashboard.xhtml?faces-redirect=true";
     }
     
     public Set<User> getCandidateReviewers() {
