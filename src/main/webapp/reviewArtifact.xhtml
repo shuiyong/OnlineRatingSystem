@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Review Artifact</ui:define>
+
+    <ui:define name="content">
+        <h1 id="header">Review Artifact</h1>
+        <a href="/dashboard.xhtml">Dashboard</a>
+        
+        <h:form>
+            <h:selectOneListbox value="#{reviewartifactBean.myArtifactId}">
+                <c:forEach items="#{reviewartifactBean.unreviewedArtifacts}" var="myArtifact">
+                    <f:selectItem itemValue="#{myArtifact.id}" itemLabel="#{myArtifact.name}"/>
+                </c:forEach>
+            </h:selectOneListbox>
+            <h:commandButton action="#{reviewartifactBean.loadData}" value="LoadArtifact"/>
+            <h:outputText value="#{reviewartifactBean.artifactData}"/>
+            <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment"/> 
+            <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit"/>
+        </h:form>
+        
+        
+    </ui:define>
+</ui:composition>

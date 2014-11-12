@@ -6,8 +6,10 @@
 package edu.baylor.ecs.softproj.service;
 import  edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
+import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import  edu.baylor.ecs.softproj.model.User;
 import java.util.Date;
+import java.util.Set;
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
@@ -19,4 +21,9 @@ public interface ArtifactService {
     
     public Artifact findById(Integer id);
     
+    public Set<Artifact> getArtifacts(User user);
+    
+    public ReviewAssignment getAssignment(User user, Integer ArtifactId);
+    
+    public String getFilePath(Integer artifactId);
 }
