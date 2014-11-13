@@ -52,8 +52,7 @@ public class ArtifactServiceImpl implements ArtifactService {
     public Set<Artifact> getArtifacts(User user){
         Set<Artifact> result = new HashSet<Artifact>();
         Set<ReviewAssignment> ra = reviewAssignmentRepository.findByReviewer(user);
-        for(Iterator<ReviewAssignment> it = ra.iterator(); it.hasNext();){
-            ReviewAssignment reviewAssignment = it.next();
+        for (ReviewAssignment reviewAssignment : ra) {
             result.add(reviewAssignment.getRpmAssignment().getArtifact());
         }
         
@@ -64,9 +63,8 @@ public class ArtifactServiceImpl implements ArtifactService {
     public ReviewAssignment getAssignment(User user, Integer artifactId){
         Set<Artifact> result = new HashSet<Artifact>();
         Set<ReviewAssignment> ra = reviewAssignmentRepository.findByReviewer(user);
-        for(Iterator<ReviewAssignment> it = ra.iterator(); it.hasNext();){
-            ReviewAssignment reviewAssignment = it.next();
-            if(reviewAssignment.getRpmAssignment().getArtifact().getId() == artifactId){
+        for (ReviewAssignment reviewAssignment : ra) {
+            if(reviewAssignment.getRpmAssignment().getArtifact().getId().equals(artifactId)){
                 return reviewAssignment;
             }
         }
