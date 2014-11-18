@@ -1,11 +1,14 @@
 package edu.baylor.ecs.softproj.service;
-
+import java.util.List;
+import java.util.Set;
 import edu.baylor.ecs.softproj.model.User;
+import edu.baylor.ecs.softproj.model.Course;
 
 /**
  * Interface for the service layer providing operations with users.
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
+ * @author yong shui <yong_shui@baylor.edu>
  */
 public interface UserService {
 
@@ -36,5 +39,15 @@ public interface UserService {
      * @param newPlainPassword new password in plain form
      */
     public void changePassword(User u, String newPlainPassword);
+    
+    /**
+     * Return a set of students candidates to create a team
+     */
+    public List<User> getStudents(User user);
+    
+    /**
+     * Return the course a lecture have
+     */
+    public Set<Course> getCourse(User user);
 
 }

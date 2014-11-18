@@ -7,6 +7,7 @@ import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
+import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import java.util.Date;
 import java.util.Iterator;
@@ -93,7 +94,4 @@ public class Dashboard {
     public void setArtifactId(Integer artifactId) {
         this.artifactId = artifactId;
     }
-
-    
-    
 }

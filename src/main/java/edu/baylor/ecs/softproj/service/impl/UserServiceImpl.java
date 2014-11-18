@@ -1,6 +1,7 @@
 package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.User;
+import edu.baylor.ecs.softproj.model.Course;
 import edu.baylor.ecs.softproj.repository.UserRepository;
 import edu.baylor.ecs.softproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import java.util.List;
+import java.util.Set;
+import java.util.ArrayList;
 
 /**
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
+ * @author yong shui <yong_shui@baylor.edu>
  */
 @Transactional
 @Service("userService")
@@ -51,5 +55,20 @@ public class UserServiceImpl implements UserService {
         u.setPassword(encoded);
         userRepository.save(u);
     }
-
+    
+    @Override
+    public List<User> getStudents(User user){
+        List<User> result = new ArrayList<User>();
+        if(user.getLecturerOf().isEmpty()){
+            return result;
+        }else{
+            result = userRepository.findAll();
+            return result;
+        }
+    }
+    
+    @Override
+    public Set<Course> getCourse(User user){
+        return user.getLecturerOf();
+    }
 }

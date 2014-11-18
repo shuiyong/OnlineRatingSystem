@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Create Team</ui:define>
+
+    <ui:define name="content">
+        <h1 id="header">Create Team</h1>
+        <a href="/dashboard.xhtml">Dashboard</a>
+        
+        <h:form>
+            <p>Select A Course</p>
+            <h:selectOneListbox value="#{createteamBean.courseId}">
+                <c:forEach items="#{createteamBean.course}" var="courseCandidate">
+                    <f:selectItem itemValue="#{courseCandidate.id}" itemLabel="#{courseCandidate.name}"/>
+                </c:forEach>
+            </h:selectOneListbox>
+            <p>Select A RPM</p>
+            <h:selectOneListbox value="#{createteamBean.rpmId}">
+                <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
+                    <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.firstName} #{rpmCandidate.lastName}"/>
+                </c:forEach>
+            </h:selectOneListbox>
+            <p>Select Team Members</p>
+            <h:selectManyListbox value="#{createteamBean.studentIds}">
+                <c:forEach items="#{createteamBean.students}" var="studentCandidate">
+                    <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.firstName} #{studentCandidate.lastName}"/>
+                </c:forEach>
+            </h:selectManyListbox>
+            <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

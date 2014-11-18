@@ -43,7 +43,7 @@ public class Team extends AbstractEntity {
 
     public Team() {
     }
-
+    
     public Set<User> getTeamMembers() {
         return teamMembers;
     }
