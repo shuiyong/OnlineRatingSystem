@@ -25,7 +25,7 @@
     
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>eggplant</param-value>
+        <param-value>none</param-value>
     </context-param>
     
     <listener>

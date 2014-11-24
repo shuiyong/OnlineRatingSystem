@@ -34,12 +34,12 @@ public class Artifact extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "submitter_id")
-    private User submitter;
+    private TeamMember submitter;
 
     public Artifact() {
     }
 
-    public Artifact(String name, String path, Team team, User submitter) {
+    public Artifact(String name, String path, Team team, TeamMember submitter) {
         this.name = name;
         this.filePath = path;
         this.team = team;
@@ -86,11 +86,11 @@ public class Artifact extends AbstractEntity {
         this.team = team;
     }
 
-    public User getSubmitter() {
+    public TeamMember getSubmitter() {
         return submitter;
     }
 
-    public void setSubmitter(User submitter) {
+    public void setSubmitter(TeamMember submitter) {
         this.submitter = submitter;
     }
 }

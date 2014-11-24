@@ -38,9 +38,9 @@ public class Review extends AbstractEntity {
     @JoinTable(
         name="view_permission",
         joinColumns=@JoinColumn(name="review_id"),
-        inverseJoinColumns=@JoinColumn(name="user_id")
+        inverseJoinColumns=@JoinColumn(name="teammember_id")
     )
-    private Set<User> canBeViewedBy;
+    private Set<TeamMember> canBeViewedBy;
 
     public Review() {
     }
@@ -84,11 +84,11 @@ public class Review extends AbstractEntity {
         this.reviewAssignment = reviewAssignment;
     }
 
-    public Set<User> getCanBeViewdBy() {
+    public Set<TeamMember> getCanBeViewdBy() {
         return canBeViewedBy;
     }
 
-    public void setCanBeViewdBy(Set<User> canBeViewdBy) {
+    public void setCanBeViewdBy(Set<TeamMember> canBeViewdBy) {
         this.canBeViewedBy = canBeViewdBy;
     }
 

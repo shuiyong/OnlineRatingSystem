@@ -1,6 +1,7 @@
 package edu.baylor.ecs.softproj.service;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
 
 /**
@@ -9,6 +10,6 @@ import edu.baylor.ecs.softproj.model.RPMAssignment;
  */
 public interface RPMAssignmentService {
 
-    public RPMAssignment create(Artifact a);
+    public RPMAssignment create(Artifact a, RPM rpm);
 
 }

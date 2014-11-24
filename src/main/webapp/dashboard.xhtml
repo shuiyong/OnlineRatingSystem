@@ -27,14 +27,7 @@
             </c:forEach>
         </ui:fragment>
         
-        <ui:fragment rendered="#{reviewartifactBean.unreviewedArtifacts.size() != 0}">    
-            <h2>Artifacts to review</h2>
-            <ul>
-            <c:forEach items="#{reviewartifactBean.unreviewedArtifacts}" var="artifact">
-                <li><a href="/reviewArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
-            </c:forEach>
-            </ul>
-        </ui:fragment>
+        
         
         <ui:fragment rendered="#{dashboardBean.teams.size() != 0}">    
             <h2>Your teams</h2>          
@@ -50,6 +43,14 @@
                         </h:form>
                     </c:forEach>
                     <a href="/submitArtifact.xhtml?teamId=#{team.id}">Submit artifact</a>
+                    <ui:fragment rendered="#{reviewartifactBean.getUnreviewedArtifacts(team).size() != 0}">    
+                        <h2>Artifacts to review</h2>
+                        <ul>
+                        <c:forEach items="#{reviewartifactBean.getUnreviewedArtifacts(team)}" var="artifact">
+                            <li><a href="/reviewArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
+                        </c:forEach>
+                        </ul>
+                    </ui:fragment>
                 </div>
             </c:forEach>
         </ui:fragment>

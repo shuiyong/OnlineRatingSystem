@@ -27,12 +27,25 @@ public class RPMAssignment extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "artifact_id")
     private Artifact artifact;
+    
+    @ManyToOne
+    @JoinColumn(name = "rpm_id")
+    private RPM rpm;
 
     public RPMAssignment() {
     }
 
-    public RPMAssignment(Artifact artifact) {
+    public RPMAssignment(Artifact artifact, RPM rpm) {
+        this.rpm = rpm;
         this.artifact = artifact;
+    }
+
+    public RPM getRpm() {
+        return rpm;
+    }
+
+    public void setRpm(RPM rpm) {
+        this.rpm = rpm;
     }
 
     public Integer getLecturerToRPMRating() {

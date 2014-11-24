@@ -8,8 +8,6 @@ package edu.baylor.ecs.softproj.model;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,13 +28,8 @@ public class Team extends AbstractEntity {
     @JoinColumn(name = "rpm_id")
     private User rpm;
 
-    @ManyToMany
-    @JoinTable(
-        name="team_member",
-        joinColumns=@JoinColumn(name="team_id"),
-        inverseJoinColumns=@JoinColumn(name="user_id")
-    )
-    private Set<User> teamMembers;
+    @OneToMany(mappedBy = "team")
+    private Set<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "team")
     private Set<Artifact> artifacts;
@@ -44,11 +37,11 @@ public class Team extends AbstractEntity {
     public Team() {
     }
     
-    public Set<User> getTeamMembers() {
+    public Set<TeamMember> getTeamMembers() {
         return teamMembers;
     }
 
-    public void setTeamMembers(Set<User> teamMembers) {
+    public void setTeamMembers(Set<TeamMember> teamMembers) {
         this.teamMembers = teamMembers;
     }
 

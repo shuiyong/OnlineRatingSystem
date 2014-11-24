@@ -5,8 +5,8 @@
  */
 package edu.baylor.ecs.softproj.web.bean;
 
-import edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.Team;
+import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.FileService;
@@ -75,7 +75,8 @@ public class SubmitArtifact {
                 String path = file.getFileName();
                 fileService.saveFile(file.getInputstream(), path);
                 Team team = teamService.getTeam(teamId);
-                artifactService.create(name, path, team, userService.getCurrentUser());
+                TeamMember tm = teamService.getTeamMemberByUserAndTeam(userService.getCurrentUser(), team);
+                artifactService.create(name, path, tm);
                 
                 FacesMessages.addInfoMessage("Succesful: " + file.getFileName() + " is uploaded.");
             } catch (IOException ex) {

@@ -7,14 +7,15 @@ package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
+import edu.baylor.ecs.softproj.model.Team;
+import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.FileService;
+import edu.baylor.ecs.softproj.service.TeamService;
 import java.util.Set;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import org.primefaces.model.DefaultStreamedContent;
@@ -42,10 +43,14 @@ public class ReviewArtifact {
     @Autowired
     public FileService fileService;
     
+    @Autowired
+    public TeamService teamService;
+    
     public StreamedContent file;
     
     private String content;
     private int myArtifactId;
+    private Artifact artifact;
     private String artifactData;
     private String rating;
 
@@ -63,6 +68,10 @@ public class ReviewArtifact {
     
     public String getArtifactData(){
         return artifactData;
+    }
+    
+    public void init(String artifactId) {
+        
     }
 
     public StreamedContent getArtifactFile(Integer artifactId) throws IOException {
@@ -96,14 +105,23 @@ public class ReviewArtifact {
         this.myArtifactId = Integer.parseInt(myArtifactId);
     }
     
-    public Set<Artifact> getUnreviewedArtifacts(){
-        User user= userService.getCurrentUser();
-        return artifactService.getArtifacts(user);
+    public Artifact getArtifact() {
+        if (artifact == null || artifact.getId() != myArtifactId) {
+            artifact = artifactService.findById(myArtifactId);
+        }
+        return artifact;
     }
     
-    public void createReview(){
+    public Set<ReviewAssignment> getUnreviewedArtifacts(Team team){
+        User user = userService.getCurrentUser();
+        TeamMember tm = teamService.getTeamMemberByUserAndTeam(user, team);
+        return reviewService.getReviewAssignment(tm);
+    }
+    
+    public void createReview(Team team){
+        TeamMember tm = teamService.getTeamMemberByUserAndTeam(userService.getCurrentUser(), team);
         ReviewAssignment ra = artifactService.getAssignment(
-                userService.getCurrentUser(), 
+                tm, 
                 myArtifactId);
         if(ra != null)
             reviewService.createReview(content, ra, Integer.parseInt(rating));

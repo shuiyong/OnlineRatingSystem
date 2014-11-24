@@ -1,6 +1,7 @@
 package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
 import edu.baylor.ecs.softproj.repository.RPMAssignmentRepository;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
@@ -21,8 +22,8 @@ public class RPMAssignmentServiceImpl implements RPMAssignmentService {
     private RPMAssignmentRepository rpmAssignmentRepository;
 
     @Override
-    public RPMAssignment create(Artifact a) {
-        return rpmAssignmentRepository.save(new RPMAssignment(a));
+    public RPMAssignment create(Artifact a, RPM rpm) {
+        return rpmAssignmentRepository.save(new RPMAssignment(a, rpm));
     }
 
     

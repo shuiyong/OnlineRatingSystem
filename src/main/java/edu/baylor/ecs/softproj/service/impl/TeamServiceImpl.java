@@ -2,9 +2,12 @@ package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.model.User;
+import edu.baylor.ecs.softproj.repository.TeamMemberRepository;
 import edu.baylor.ecs.softproj.repository.TeamRepository;
 import edu.baylor.ecs.softproj.service.TeamService;
+import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,18 +25,37 @@ public class TeamServiceImpl implements TeamService {
     
     @Autowired
     private TeamRepository teamRepository;
+    
+    @Autowired
+    private TeamMemberRepository teamMemberRepository;
 
     @Override
-    public boolean createTeam(Course course, Set<User> users, User rpm){
+    public Team createTeam(Course course, Set<User> users, User rpm){
         Team team = new Team(course, rpm);
-        team.setTeamMembers(users);
+        Set<TeamMember> teamMembers = new HashSet<TeamMember>();
+        for(User user: users) {
+            TeamMember tm = new TeamMember(user, team);
+            user.getTeamMembers().add(tm);
+            teamMembers.add(tm);
+        }
+        team.setTeamMembers(teamMembers);
         teamRepository.save(team);
-        return true;
+        return team;
     }
 
     @Override
     public Team getTeam(Integer teamId) {
         return teamRepository.findOne(teamId);
+    }
+
+    @Override
+    public TeamMember getTeamMemberById(Integer id) {
+        return teamMemberRepository.findOne(id);
+    }
+
+    @Override
+    public TeamMember getTeamMemberByUserAndTeam(User user, Team team) {
+        return teamMemberRepository.findByUserAndTeam(user, team);
     }
     
 }

@@ -2,6 +2,7 @@ package edu.baylor.ecs.softproj.service;
 
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.model.User;
 import java.util.Set;
 
@@ -13,6 +14,8 @@ import java.util.Set;
  * @author yong shui <yong_shui@baylor.edu>
  */
 public interface TeamService {
-    public boolean createTeam(Course course, Set<User> users, User rpm);
+    public Team createTeam(Course course, Set<User> users, User rpm);
     public Team getTeam(Integer teamId);
+    public TeamMember getTeamMemberById(Integer id);
+    public TeamMember getTeamMemberByUserAndTeam(User user, Team team);
 }

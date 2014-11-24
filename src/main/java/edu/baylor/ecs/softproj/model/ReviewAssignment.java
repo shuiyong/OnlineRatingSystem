@@ -26,7 +26,7 @@ public class ReviewAssignment extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "reviewer_id")
-    private User reviewer;
+    private TeamMember reviewer;
 
     @ManyToOne
     @JoinColumn(name = "rpm_assignment_id")
@@ -38,7 +38,7 @@ public class ReviewAssignment extends AbstractEntity {
     public ReviewAssignment() {
     }
 
-    public ReviewAssignment(Date deadline, User reviewer, RPMAssignment rpmAssignment) {
+    public ReviewAssignment(Date deadline, TeamMember reviewer, RPMAssignment rpmAssignment) {
         this.deadline = deadline;
         this.reviewer = reviewer;
         this.rpmAssignment = rpmAssignment;
@@ -52,11 +52,11 @@ public class ReviewAssignment extends AbstractEntity {
         this.deadline = deadline;
     }
 
-    public User getReviewer() {
+    public TeamMember getReviewer() {
         return reviewer;
     }
 
-    public void setReviewer(User reviewer) {
+    public void setReviewer(TeamMember reviewer) {
         this.reviewer = reviewer;
     }
 

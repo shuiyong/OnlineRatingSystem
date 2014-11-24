@@ -1,19 +1,18 @@
 package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
-import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import edu.baylor.ecs.softproj.model.Team;
-import edu.baylor.ecs.softproj.model.User;
+import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
-import edu.baylor.ecs.softproj.service.ReviewService;
+import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.service.UserService;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -31,6 +30,9 @@ public class Dashboard {
     public UserService userService;
     
     @Autowired
+    public TeamService teamService;
+    
+    @Autowired
     public ArtifactService artifactService;
     
     @Autowired
@@ -42,12 +44,8 @@ public class Dashboard {
     
     private Integer artifactId;
         
-    public Set<Team> getTeams() {
-        return userService.getCurrentUser().getMemeberOf();
-    }
-    
-    public Set<Team> getRpmOf() {
-        return userService.getCurrentUser().getRpmOf();
+    public Set<TeamMember> getTeams() {
+        return userService.getCurrentUser().getTeamMembers();
     }
     
     public Set<Artifact> getUnassignedArtifacts(Team team) {
@@ -61,18 +59,18 @@ public class Dashboard {
         return artifacts;
     }
     
-    public String assignArtifact() {
-        RPMAssignment rpmAssignment = rpmAssignmentService.create(artifactService.findById(artifactId));
+    public String assignArtifact(RPM rpm) {
+        RPMAssignment rpmAssignment = rpmAssignmentService.create(artifactService.findById(artifactId), rpm);
         for (String id : reviewerIds) {
-            User u = userService.getById(Integer.parseInt(id));
-            artifactService.assgnArtifact(rpmAssignment, u, deadline);
+            TeamMember tm = teamService.getTeamMemberById(Integer.parseInt(id));
+            artifactService.assgnArtifact(rpmAssignment, tm, deadline);
         }
         
         return "/dashboard.xhtml?faces-redirect=true";
     }
     
-    public Set<User> getCandidateReviewers() {
-        return userService.getCurrentUser().getMemeberOf().iterator().next().getTeamMembers();
+    public Set<TeamMember> getCandidateReviewers(RPM rpm) {
+        return rpm.getTeamMember().getTeam().getTeamMembers();
     }
 
     public void setReviewerIds(List<String> reviewerIds) {

@@ -3,7 +3,6 @@ package edu.baylor.ecs.softproj.model;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,23 +31,11 @@ public class User extends AbstractEntity {
     @Column(nullable = false)
     private Boolean isAdmin;
 
-    @ManyToMany(mappedBy = "canBeViewedBy")
-    private Set<Review> canView;
-
-    @ManyToMany(mappedBy = "teamMembers")
-    private Set<Team> memberOf;
+    @OneToMany(mappedBy = "user")
+    private Set<TeamMember> teamMembers;
 
     @OneToMany(mappedBy = "lecturer")
     private Set<Course> lecturerOf;
-
-    @OneToMany(mappedBy = "rpm")
-    private Set<Team> rpmOf;
-
-    @OneToMany(mappedBy = "submitter")
-    private Set<Artifact> submitterOf;
-
-    @OneToMany(mappedBy = "reviewer")
-    private Set<ReviewAssignment> reviewerOf;
 
     public User() {
     }
@@ -101,20 +88,12 @@ public class User extends AbstractEntity {
         this.isAdmin = isAdmin;
     }
 
-    public Set<Review> getCanView() {
-        return canView;
+    public Set<TeamMember> getTeamMembers() {
+        return teamMembers;
     }
 
-    public void setCanView(Set<Review> canView) {
-        this.canView = canView;
-    }
-
-    public Set<Team> getMemeberOf() {
-        return memberOf;
-    }
-
-    public void setMemeberOf(Set<Team> memeberOf) {
-        this.memberOf = memeberOf;
+    public void setTeamMembers(Set<TeamMember> teamMembers) {
+        this.teamMembers = teamMembers;
     }
 
     public Set<Course> getLecturerOf() {
@@ -124,29 +103,4 @@ public class User extends AbstractEntity {
     public void setLecturerOf(Set<Course> lecturerOf) {
         this.lecturerOf = lecturerOf;
     }
-
-    public Set<Team> getRpmOf() {
-        return rpmOf;
-    }
-
-    public void setRpmOf(Set<Team> rpmOf) {
-        this.rpmOf = rpmOf;
-    }
-
-    public Set<Artifact> getSubmitterOf() {
-        return submitterOf;
-    }
-
-    public void setSubmitterOf(Set<Artifact> submitterOf) {
-        this.submitterOf = submitterOf;
-    }
-
-    public Set<ReviewAssignment> getReviewerOf() {
-        return reviewerOf;
-    }
-
-    public void setReviewerOf(Set<ReviewAssignment> reviewerOf) {
-        this.reviewerOf = reviewerOf;
-    }
-
 }
