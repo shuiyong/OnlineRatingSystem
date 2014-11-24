@@ -13,9 +13,6 @@
     <ui:define name="content">
         <h1 id="header">Dashboard</h1>
         <p>Yep, you are inside!</p>
-        <ui:fragment rendered="#{dashboardBean.teams.size() != 0}">            
-            <c:forEach items="#{dashboardBean.teams}" var="team">
-        <a href="/j_spring_security_logout">Logout</a>
         <ui:fragment rendered="#{dashboardBean.rpmOf.size() != 0}">    
             <h2>Unassigned artifacts:</h2>
             <c:forEach items="#{dashboardBean.rpmOf}" var="team">

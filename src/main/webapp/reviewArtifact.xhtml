@@ -29,14 +29,14 @@
             
             <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment" class="form-control"/> 
             <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit" class="btn btn-default"/>
-        <h:form>
-            <p:commandButton value="Download artfact" ajax="false">
+            
+            <p:commandButton value="Download artfact" ajax="false" class="btn btn-default">
                 <p:fileDownload value="#{reviewartifactBean.getArtifactFile(reviewartifactBean.myArtifactId)}" />
             </p:commandButton>
         </h:form>
         
         <h:form>
-            <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment"/> 
+            <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment" /> 
             <p:outputLabel for="rating" value="Rating:" />
             <p:selectOneMenu id="rating" value="#{reviewartifactBean.rating}">
                 <f:selectItem itemLabel="1" itemValue="1" />
@@ -50,7 +50,7 @@
                 <f:selectItem itemLabel="9" itemValue="9" />
                 <f:selectItem itemLabel="10" itemValue="10" />
             </p:selectOneMenu>
-            <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit"/>
+            <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit" />
         </h:form>
         
         
