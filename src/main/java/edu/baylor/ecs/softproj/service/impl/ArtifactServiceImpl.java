@@ -4,6 +4,7 @@ import edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
+import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.repository.ArtifactRepository;
 import edu.baylor.ecs.softproj.repository.RPMAssignmentRepository;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  * @author Yong Shui <Yong_Shui@baylor.edu>
  */
@@ -74,5 +76,14 @@ public class ArtifactServiceImpl implements ArtifactService {
     @Override
     public String getFilePath(Integer artifactId){
         return artifactRepository.findOne(artifactId).getFilePath();
+    }
+
+    @Override
+    public boolean create(String name, String path, Team team, User submitter) {
+        Artifact a = new Artifact(name, path, team, submitter);
+        submitter.getSubmitterOf().add(a);
+        team.getArtifacts().add(a);
+        artifactRepository.save(a);
+        return true;
     }
 }

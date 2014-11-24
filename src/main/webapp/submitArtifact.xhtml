@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Submit Artifact</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="teamId" value="#{submitartifactBean.teamId}"/>
+        </f:metadata>
+        <h1 id="header">Submit Artifact</h1>
+        <a href="/dashboard.xhtml">Dashboard</a>
+        
+        <h:form enctype="multipart/form-data">
+            <h:outputLabel for="name" value="Artifact name" />
+            <h:inputText id="name" value="#{submitartifactBean.name}" label="Artifact name: "></h:inputText>
+            <p:fileUpload value="#{submitartifactBean.file}" mode="simple"/>
+            <p:commandButton value="Submit" ajax="false" actionListener="#{submitartifactBean.upload}" />
+        </h:form>
+        
+        
+    </ui:define>
+</ui:composition>

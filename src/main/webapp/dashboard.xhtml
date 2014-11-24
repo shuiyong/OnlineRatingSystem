@@ -14,11 +14,11 @@
         <h1 id="header">Dashboard</h1>
         <p>Yep, you are inside!</p>
         <a href="/j_spring_security_logout">Logout</a>
-        <ui:fragment rendered="#{dashboardBean.teams.size() != 0}">            
-            <c:forEach items="#{dashboardBean.teams}" var="team">
+        <ui:fragment rendered="#{dashboardBean.rpmOf.size() != 0}">    
+            <h2>Unassigned artifacts:</h2>
+            <c:forEach items="#{dashboardBean.rpmOf}" var="team">
                 <div style="border:1px black solid; margin:10px; padding:10px;">
-                    <h3>You are RPM of: Team #{team.id}</h3>
-                    <h4>Unassigned artifacts:</h4>
+                    <h3>For team: Team #{team.id}</h3>
                     <ul>
                         <c:forEach items="#{dashboardBean.getUnassignedArtifacts(team)}" var="artifact">
                             <li><a href="/assignArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
@@ -28,7 +28,26 @@
             </c:forEach>
         </ui:fragment>
         
-        <a href="/reviewArtifact.xhtml">Review Artifact</a>
+        <ui:fragment rendered="#{reviewartifactBean.unreviewedArtifacts.size() != 0}">    
+            <h2>Artifacts to review</h2>
+            <ul>
+            <c:forEach items="#{reviewartifactBean.unreviewedArtifacts}" var="artifact">
+                <li><a href="/reviewArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
+            </c:forEach>
+            </ul>
+        </ui:fragment>
+        
+        <ui:fragment rendered="#{dashboardBean.teams.size() != 0}">    
+            <h2>Your teams</h2>          
+            <c:forEach items="#{dashboardBean.teams}" var="team">
+                <div style="border:1px black solid; margin:10px; padding:10px;">
+                    <h3>#{team.course.name} (team #{team.id})</h3>
+                    <a href="/submitArtifact.xhtml?teamId=#{team.id}">Submit artifact</a>
+                </div>
+            </c:forEach>
+        </ui:fragment>
+
+        
         <a href="/createTeam.xhtml">Create Team</a>
     </ui:define>
 </ui:composition>

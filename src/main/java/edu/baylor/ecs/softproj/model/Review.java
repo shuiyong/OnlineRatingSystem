@@ -45,9 +45,10 @@ public class Review extends AbstractEntity {
     public Review() {
     }
 
-    public Review(String content, ReviewAssignment reviewAssignment) {
+    public Review(String content, ReviewAssignment reviewAssignment, Integer rating) {
         this.content = content;
         this.reviewAssignment = reviewAssignment;
+        this.reviewerToArtifactRating = rating;
     }
 
     @PrePersist

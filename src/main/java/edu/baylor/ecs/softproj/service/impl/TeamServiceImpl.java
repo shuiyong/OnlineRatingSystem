@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 /**
- *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  * @author yong shui <yong_shui@baylor.edu>
  */
@@ -30,4 +30,10 @@ public class TeamServiceImpl implements TeamService {
         teamRepository.save(team);
         return true;
     }
+
+    @Override
+    public Team getTeam(Integer teamId) {
+        return teamRepository.findOne(teamId);
+    }
+    
 }

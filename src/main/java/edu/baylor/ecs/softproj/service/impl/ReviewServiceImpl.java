@@ -24,8 +24,8 @@ public class ReviewServiceImpl implements ReviewService{
     private ReviewRepository reviewRepository;
     
     @Override
-    public boolean createReview(String content, ReviewAssignment reviewAssignment){
-        reviewRepository.save(new Review(content, reviewAssignment));
+    public boolean createReview(String content, ReviewAssignment reviewAssignment, Integer rating){
+        reviewRepository.save(new Review(content, reviewAssignment, rating));
         return true;
     }
 }

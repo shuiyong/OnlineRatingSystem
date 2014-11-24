@@ -43,6 +43,10 @@ public class Dashboard {
     private Integer artifactId;
         
     public Set<Team> getTeams() {
+        return userService.getCurrentUser().getMemeberOf();
+    }
+    
+    public Set<Team> getRpmOf() {
         return userService.getCurrentUser().getRpmOf();
     }
     

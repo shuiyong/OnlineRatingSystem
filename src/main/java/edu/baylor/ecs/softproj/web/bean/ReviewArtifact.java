@@ -11,10 +11,14 @@ import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
+import edu.baylor.ecs.softproj.service.FileService;
 import java.util.Set;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,9 +39,23 @@ public class ReviewArtifact {
     @Autowired
     public UserService userService;
     
+    @Autowired
+    public FileService fileService;
+    
+    public StreamedContent file;
+    
     private String content;
     private String myArtifactId;
     private String artifactData;
+    private String rating;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
     
     public String getContent(){
         return content;
@@ -45,6 +63,19 @@ public class ReviewArtifact {
     
     public String getArtifactData(){
         return artifactData;
+    }
+
+    public StreamedContent getFile() throws IOException {
+        if (file == null && myArtifactId != null) {
+            Artifact a = artifactService.findById(Integer.parseInt(myArtifactId));
+            InputStream stream = fileService.downloadFile(a.getFilePath());
+            file = new DefaultStreamedContent(stream, null, a.getName());
+        }
+        return file;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
     }
     
     public void setArtifactData(String artifactData){
@@ -73,7 +104,7 @@ public class ReviewArtifact {
                 userService.getCurrentUser(), 
                 Integer.parseInt(myArtifactId));
         if(ra != null)
-            reviewService.createReview(content, ra);
+            reviewService.createReview(content, ra, Integer.parseInt(rating));
         else{
             //do something to show the error
         }
