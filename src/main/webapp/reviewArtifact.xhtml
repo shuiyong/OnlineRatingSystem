@@ -18,8 +18,8 @@
         <a href="/dashboard.xhtml">Dashboard</a>
         
         <h:form>
-            <p:commandButton value="Download" ajax="false" icon="ui-icon-arrowthick-1-s">
-                <p:fileDownload value="#{reviewartifactBean.file}" />
+            <p:commandButton value="Download artfact" ajax="false">
+                <p:fileDownload value="#{reviewartifactBean.getArtifactFile(reviewartifactBean.myArtifactId)}" />
             </p:commandButton>
         </h:form>
         

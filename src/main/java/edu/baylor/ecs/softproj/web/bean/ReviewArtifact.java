@@ -45,7 +45,7 @@ public class ReviewArtifact {
     public StreamedContent file;
     
     private String content;
-    private String myArtifactId;
+    private int myArtifactId;
     private String artifactData;
     private String rating;
 
@@ -65,12 +65,10 @@ public class ReviewArtifact {
         return artifactData;
     }
 
-    public StreamedContent getFile() throws IOException {
-        if (file == null && myArtifactId != null) {
-            Artifact a = artifactService.findById(Integer.parseInt(myArtifactId));
-            InputStream stream = fileService.downloadFile(a.getFilePath());
-            file = new DefaultStreamedContent(stream, null, a.getName());
-        }
+    public StreamedContent getArtifactFile(Integer artifactId) throws IOException {
+        Artifact a = artifactService.findById(artifactId);
+        InputStream stream = fileService.downloadFile(a.getFilePath());
+        file = new DefaultStreamedContent(stream, null, a.getFilePath());
         return file;
     }
 
@@ -86,12 +84,16 @@ public class ReviewArtifact {
         this.content = content;
     }
     
-    public String getMyArtifactId(){
+    public int getMyArtifactId(){
         return myArtifactId;
     }
     
-    public void setMyArtifactId(String myArtifactId){
+    public void setMyArtifactId(int myArtifactId){
         this.myArtifactId = myArtifactId;
+    }
+    
+    public void setMyArtifactId(String myArtifactId){
+        this.myArtifactId = Integer.parseInt(myArtifactId);
     }
     
     public Set<Artifact> getUnreviewedArtifacts(){
@@ -102,7 +104,7 @@ public class ReviewArtifact {
     public void createReview(){
         ReviewAssignment ra = artifactService.getAssignment(
                 userService.getCurrentUser(), 
-                Integer.parseInt(myArtifactId));
+                myArtifactId);
         if(ra != null)
             reviewService.createReview(content, ra, Integer.parseInt(rating));
         else{
@@ -110,17 +112,4 @@ public class ReviewArtifact {
         }
     }
     
-    public void loadData(){
-        String filepath = artifactService.getFilePath(Integer.parseInt(myArtifactId));
-        File file = new File(filepath); //for ex foo.txt
-        try {
-            FileReader reader = new FileReader(file);
-            char[] chars = new char[(int) file.length()];
-            reader.read(chars);
-            artifactData = new String(chars);
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

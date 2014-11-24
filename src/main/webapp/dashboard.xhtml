@@ -42,6 +42,14 @@
             <c:forEach items="#{dashboardBean.teams}" var="team">
                 <div style="border:1px black solid; margin:10px; padding:10px;">
                     <h3>#{team.course.name} (team #{team.id})</h3>
+                    <h4>Submitted artifacts</h4>
+                    <c:forEach items="#{team.artifacts}" var="artifact">
+                        <h:form>
+                            <p:commandButton value="#{artifact.name}" ajax="false">
+                                <p:fileDownload value="#{reviewartifactBean.getArtifactFile(artifact.id)}" />
+                            </p:commandButton>
+                        </h:form>
+                    </c:forEach>
                     <a href="/submitArtifact.xhtml?teamId=#{team.id}">Submit artifact</a>
                 </div>
             </c:forEach>
