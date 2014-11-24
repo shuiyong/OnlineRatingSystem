@@ -47,7 +47,7 @@ public class createTeam {
         List<User> userlist= userService.getStudents(user);
         for(Iterator<User> iterator = userlist.iterator(); iterator.hasNext();){
             User tmp = iterator.next();
-            if(tmp.getId() == user.getId())
+            if(tmp.getId().equals(user.getId()))
                 iterator.remove();
         }
         return userlist;

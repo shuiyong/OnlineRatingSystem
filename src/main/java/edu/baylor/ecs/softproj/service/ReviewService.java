@@ -10,5 +10,5 @@ import edu.baylor.ecs.softproj.model.ReviewAssignment;
  * @author yong shui <yong_shui@baylor.edu>
  */
 public interface ReviewService {
-    public boolean createReview(String content, ReviewAssignment reviewAssignment);
+    public boolean createReview(String content, ReviewAssignment reviewAssignment, Integer rating);
 }
