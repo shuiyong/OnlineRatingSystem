@@ -14,26 +14,29 @@
         <h1 id="header">Create Team</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
         
-        <h:form>
-            <p>Select A Course</p>
-            <h:selectOneListbox value="#{createteamBean.courseId}">
+        <h:form class="form-horizontal">
+            <h:outputLabel value="Select A Course" class="col-lg-1 control-label" />
+            <h:selectOneListbox value="#{createteamBean.courseId}" class="form-control">
                 <c:forEach items="#{createteamBean.course}" var="courseCandidate">
                     <f:selectItem itemValue="#{courseCandidate.id}" itemLabel="#{courseCandidate.name}"/>
                 </c:forEach>
             </h:selectOneListbox>
-            <p>Select A RPM</p>
-            <h:selectOneListbox value="#{createteamBean.rpmId}">
+            
+            <h:outputLabel value="Select An RPM" class="col-lg-1 control-label" />
+            <h:selectOneListbox value="#{createteamBean.rpmId}" class="form-control">
                 <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
                     <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.firstName} #{rpmCandidate.lastName}"/>
                 </c:forEach>
             </h:selectOneListbox>
-            <p>Select Team Members</p>
-            <h:selectManyListbox value="#{createteamBean.studentIds}">
+            
+            <h:outputLabel value="Select Team Members" class="col-lg-1 control-label" />
+            <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
                 <c:forEach items="#{createteamBean.students}" var="studentCandidate">
                     <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.firstName} #{studentCandidate.lastName}"/>
                 </c:forEach>
             </h:selectManyListbox>
-            <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team"/>
+            
+            <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team" class="btn btn-default"/>
         </h:form>
     </ui:define>
 </ui:composition>

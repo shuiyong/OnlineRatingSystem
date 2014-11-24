@@ -12,15 +12,15 @@
 
     <ui:define name="content">
         <h:form><h:commandButton action="#{loginBean.createUser}" value="Create user test/test"/></h:form>
-        <h:form>
+        <h:form class="form-horizontal">
             <h1 id="header">Login to SoftProj</h1>
-            <h:panelGrid columns="2" cellpadding="2" class="marginTop">
-                <h:outputLabel for="username" value="Username" />
-                <h:inputText id="username" value="#{loginBean.username}"  label="Username: "></h:inputText>
-                <h:outputLabel for="password" value="Heslo" />
-                <h:inputSecret id="password" value="#{loginBean.password}" label="Password: "></h:inputSecret>
+            <h:panelGrid columns="2" cellpadding="2" class="form-group">
+                <h:outputLabel for="username" value="Username" class="col-lg-1 control-label" />
+                <h:inputText id="username" value="#{loginBean.username}"  label="Username: " class="form-control"></h:inputText>
+                <h:outputLabel for="password" value="Password" class="col-lg-1 control-label"/>
+                <h:inputSecret id="password" value="#{loginBean.password}" label="Password: " class="form-control"></h:inputSecret>
             </h:panelGrid>
-            <h:commandButton type="submit" value="Login" action="#{loginBean.login}"/>
+            <h:commandButton type="submit" value="Login" action="#{loginBean.login}" class="btn btn-default"/>
             <c:if test="${param['error'] == 1}">
                 <p>
                     <h:outputText value="Wrong username or password!"/>

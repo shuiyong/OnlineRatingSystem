@@ -14,16 +14,18 @@
         <h1 id="header">Review Artifact</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
         
-        <h:form>
-            <h:selectOneListbox value="#{reviewartifactBean.myArtifactId}">
+        <h:form class="form-horizontal">
+            <h:selectOneListbox value="#{reviewartifactBean.myArtifactId}" class="form-control">
                 <c:forEach items="#{reviewartifactBean.unreviewedArtifacts}" var="myArtifact">
                     <f:selectItem itemValue="#{myArtifact.id}" itemLabel="#{myArtifact.name}"/>
                 </c:forEach>
             </h:selectOneListbox>
-            <h:commandButton action="#{reviewartifactBean.loadData}" value="LoadArtifact"/>
-            <h:outputText value="#{reviewartifactBean.artifactData}"/>
-            <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment"/> 
-            <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit"/>
+            
+            <h:commandButton action="#{reviewartifactBean.loadData}" value="Load Artifact" class="btn btn-default"/>
+            <h:outputText value="#{reviewartifactBean.artifactData}" class="col-lg-1 control-label"/>
+            
+            <p:inputTextarea value="#{reviewartifactBean.content}" rows="4" label="Input Your Comment" class="form-control"/> 
+            <h:commandButton action="#{reviewartifactBean.createReview}" value="Submit" class="btn btn-default"/>
         </h:form>
         
         

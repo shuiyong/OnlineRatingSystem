@@ -16,14 +16,14 @@
         </f:metadata>
         <h1 id="header">Assign Artifact: #{param['artifactId']}</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
-        <h:form>
-            <h:selectManyListbox value="#{dashboardBean.reviewerIds}">
+        <h:form class="form-horizontal">
+            <h:selectManyListbox value="#{dashboardBean.reviewerIds}" class="form-control">
                 <c:forEach items="#{dashboardBean.candidateReviewers}" var="candidate">
                     <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.firstName} #{candidate.lastName}"/>
                 </c:forEach>
             </h:selectManyListbox>
             <p:calendar value="#{dashboardBean.deadline}" pattern="MM/dd/yyyy HH:mm:ss"/>
-            <h:commandButton action="#{dashboardBean.assignArtifact}" value="Confirm"/>
+            <h:commandButton action="#{dashboardBean.assignArtifact}" value="Confirm" class="btn btn-default"/>
         </h:form>
     </ui:define>
 </ui:composition>
