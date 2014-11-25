@@ -28,14 +28,14 @@ public class RPMAssignmentRepositoryTest {
     RPMAssignmentRepository rpmAssignmentRepository;
     
     @Test
-    public void testFindAll() {/*
-        Artifact artifact = new Artifact();
-        artifact.setName("aaa");
-        artifact.setFilePath("/etc/test");
-        artifactRepository.save(artifact);
-        rpmAssignmentRepository.save(new RPMAssignment(artifact));
-        Artifact artifact1 = rpmAssignmentRepository.findAll().iterator().next().getArtifact();
-        assertEquals(artifact.getName(), artifact1.getName());*/
+    public void testFindAll() {
+//        Artifact artifact = new Artifact();
+//        artifact.setName("aaa");
+//        artifact.setFilePath("/etc/test");
+//        artifactRepository.save(artifact);
+//        rpmAssignmentRepository.save(new RPMAssignment(artifact));
+//        Artifact artifact1 = rpmAssignmentRepository.findAll().iterator().next().getArtifact();
+//        assertEquals(artifact.getName(), artifact1.getName());
     }
 
 }

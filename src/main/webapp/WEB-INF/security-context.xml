@@ -24,7 +24,7 @@
     <!-- access rules -->
     <http auto-config="true" access-denied-page="/login.xhtml">
         <intercept-url pattern="/login.xhtml" access="ROLE_ANONYMOUS" />
-        <intercept-url pattern="/resources/**" access="ROLE_ANONYMOUS" />
+        <intercept-url pattern="/resources/**" access="ROLE_ANONYMOUS,ROLE_ADMIN" />
         <intercept-url pattern="/**" access="ROLE_ADMIN" />
         <form-login
             login-processing-url="/j_spring_security_check"
