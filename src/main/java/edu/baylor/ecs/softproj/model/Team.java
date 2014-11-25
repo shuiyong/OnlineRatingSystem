@@ -24,9 +24,8 @@ public class Team extends AbstractEntity {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "rpm_id")
-    private User rpm;
+    @OneToMany(mappedBy = "team")
+    private Set<RPM> rpms;
 
     @OneToMany(mappedBy = "team")
     private Set<TeamMember> teamMembers;
@@ -53,9 +52,8 @@ public class Team extends AbstractEntity {
         this.artifacts = artifacts;
     }
 
-    public Team(Course course, User rpm) {
+    public Team(Course course) {
         this.course = course;
-        this.rpm = rpm;
     }
 
     public Course getCourse() {
@@ -66,12 +64,12 @@ public class Team extends AbstractEntity {
         this.course = course;
     }
 
-    public User getRpm() {
-        return rpm;
+    public Set<RPM> getRpms() {
+        return rpms;
     }
 
-    public void setRpm(User rpm) {
-        this.rpm = rpm;
+    public void setRpm(Set<RPM> rpms) {
+        this.rpms = rpms;
     }
 
 }

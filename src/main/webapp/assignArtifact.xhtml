@@ -13,13 +13,14 @@
     <ui:define name="content">
         <f:metadata>
             <f:viewParam name="artifactId" value="#{dashboardBean.artifactId}"/>
+            <f:viewParam name="teamMemberId" value="#{dashboardBean.teamMemberId}"/>
         </f:metadata>
         <h1 id="header">Assign Artifact: #{param['artifactId']}</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
         <h:form class="form-horizontal">
             <h:selectManyListbox value="#{dashboardBean.reviewerIds}" class="form-control">
                 <c:forEach items="#{dashboardBean.candidateReviewers}" var="candidate">
-                    <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.firstName} #{candidate.lastName}"/>
+                    <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.user.firstName} #{candidate.user.lastName}"/>
                 </c:forEach>
             </h:selectManyListbox>
             <p:calendar value="#{dashboardBean.deadline}" pattern="MM/dd/yyyy HH:mm:ss"/>

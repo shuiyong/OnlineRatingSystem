@@ -14,7 +14,7 @@ import java.util.Set;
  * @author yong shui <yong_shui@baylor.edu>
  */
 public interface TeamService {
-    public Team createTeam(Course course, Set<User> users, User rpm);
+    public Team createTeam(Course course, Set<User> users);
     public Team getTeam(Integer teamId);
     public TeamMember getTeamMemberById(Integer id);
     public TeamMember getTeamMemberByUserAndTeam(User user, Team team);

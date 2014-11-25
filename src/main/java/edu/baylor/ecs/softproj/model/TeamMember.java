@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -92,6 +91,16 @@ public class TeamMember extends AbstractEntity {
 
     public void setReviewerOf(Set<ReviewAssignment> reviewerOf) {
         this.reviewerOf = reviewerOf;
+    }
+    
+    public RPM getActiveRPM() {
+        for(RPM rpm: getRpms()) {
+            if (rpm.isActive()) {
+                return rpm;
+            }
+        }
+        
+        return null;
     }
 
 }

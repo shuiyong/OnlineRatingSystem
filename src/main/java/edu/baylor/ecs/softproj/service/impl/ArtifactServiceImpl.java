@@ -1,11 +1,11 @@
 package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.TeamMember;
-import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.repository.ArtifactRepository;
 import edu.baylor.ecs.softproj.repository.RPMAssignmentRepository;
 import edu.baylor.ecs.softproj.repository.ReviewAssignmentRepository;
@@ -73,6 +73,13 @@ public class ArtifactServiceImpl implements ArtifactService {
         submitter.getSubmitterOf().add(a);
         team.getArtifacts().add(a);
         artifactRepository.save(a);
+        for(RPM rpm: team.getRpms()) {
+            if (rpm.isActive()) {
+                RPMAssignment ass = new RPMAssignment(a, rpm);
+                rpmAssignmentRepository.save(ass);
+                return true;
+            }
+        }
         return true;
     }
 }

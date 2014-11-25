@@ -103,4 +103,8 @@ public class User extends AbstractEntity {
     public void setLecturerOf(Set<Course> lecturerOf) {
         this.lecturerOf = lecturerOf;
     }
+
+    public String getName() {
+        return firstName + " " + lastName;
+    }
 }

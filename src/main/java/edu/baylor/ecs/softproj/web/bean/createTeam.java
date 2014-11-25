@@ -62,7 +62,7 @@ public class createTeam {
         Course course = courseService.getById(Integer.parseInt(courseId));
         User user = userService.getById(Integer.parseInt(rpmId));
         
-        teamService.createTeam(course, students, user);
+        teamService.createTeam(course, students);
     }
     
     public void setStudentIds(List<String> studentIds) {

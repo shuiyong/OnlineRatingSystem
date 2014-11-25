@@ -1,3 +1,5 @@
+begin;
+
 insert into MYUSER values (1, 'test1', 'Lecturer', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
 insert into MYUSER values (2, 'test2', 'Submitter', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
 insert into MYUSER values (3, 'test3', 'Candidate Reviewer 1', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
@@ -8,13 +10,20 @@ insert into MYUSER values (7, 'test7', 'RPM2', False, 'Test', '$2a$10$O7DfALJgET
 
 insert into COURSE values (1, 'Software Engineering', 1);
 
-insert into TEAM values (1, 1, 6);
-insert into TEAM values (2, 1, 7);
+-- id, course_id
+insert into TEAM values (1, 1);
+insert into TEAM values (2, 1);
 
-insert into TEAM_MEMBER values (1, 2);
-insert into TEAM_MEMBER values (2, 3);
-insert into TEAM_MEMBER values (2, 4);
-insert into TEAM_MEMBER values (2, 5);
-insert into TEAM_MEMBER values (2, 6);
+-- id, team_id, user_id
+insert into TEAMMEMBER values (1, 1, 2);
+insert into TEAMMEMBER values (2, 1, 7);
+insert into TEAMMEMBER values (3, 2, 3);
+insert into TEAMMEMBER values (4, 2, 4);
+insert into TEAMMEMBER values (5, 2, 5);
+insert into TEAMMEMBER values (6, 2, 6);
 
-insert into ARTIFACT values (1, '/random/path', 0, 'First Artifact', 2, 1);
+-- id, active, team_id, teammember_id
+insert into RPM values (1, true, 1, 6);
+insert into RPM values (2, true, 2, 2);
+
+commit;

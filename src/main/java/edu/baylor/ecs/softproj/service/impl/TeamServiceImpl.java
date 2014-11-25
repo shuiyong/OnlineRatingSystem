@@ -30,8 +30,8 @@ public class TeamServiceImpl implements TeamService {
     private TeamMemberRepository teamMemberRepository;
 
     @Override
-    public Team createTeam(Course course, Set<User> users, User rpm){
-        Team team = new Team(course, rpm);
+    public Team createTeam(Course course, Set<User> users){
+        Team team = new Team(course);
         Set<TeamMember> teamMembers = new HashSet<TeamMember>();
         for(User user: users) {
             TeamMember tm = new TeamMember(user, team);

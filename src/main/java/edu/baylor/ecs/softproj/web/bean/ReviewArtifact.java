@@ -112,10 +112,8 @@ public class ReviewArtifact {
         return artifact;
     }
     
-    public Set<ReviewAssignment> getUnreviewedArtifacts(Team team){
-        User user = userService.getCurrentUser();
-        TeamMember tm = teamService.getTeamMemberByUserAndTeam(user, team);
-        return reviewService.getReviewAssignment(tm);
+    public Set<ReviewAssignment> getUnreviewedArtifacts(TeamMember teamMember){
+        return reviewService.getReviewAssignment(teamMember);
     }
     
     public void createReview(Team team){

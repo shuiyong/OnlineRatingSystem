@@ -3,13 +3,13 @@ package edu.baylor.ecs.softproj.web.bean;
 import edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
-import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.service.UserService;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -43,23 +43,35 @@ public class Dashboard {
     private Date deadline;
     
     private Integer artifactId;
+    
+    private Integer teamMemberId;
+
+    public Integer getTeamMemberId() {
+        return teamMemberId;
+    }
+
+    public void setTeamMemberId(Integer teamMemberId) {
+        this.teamMemberId = teamMemberId;
+    }
         
-    public Set<TeamMember> getTeams() {
+    public Set<TeamMember> getTeamMembers() {
         return userService.getCurrentUser().getTeamMembers();
     }
     
-    public Set<Artifact> getUnassignedArtifacts(Team team) {
-        Set<Artifact> artifacts = team.getArtifacts();
-        for (Iterator<Artifact> iterator = artifacts.iterator(); iterator.hasNext();) {
-            Artifact next = iterator.next();
-            if (!next.getRpmAssginments().isEmpty()) {
-                iterator.remove();
+    public Set<Artifact> getUnassignedArtifacts(RPM rpm) {
+        Set<Artifact> artifacts = new HashSet<Artifact>();
+        if (rpm != null) {
+            for (RPMAssignment ass: rpm.getRPMAssignments()) {
+                if (ass.getReviewAssignments().isEmpty()) {
+                    artifacts.add(ass.getArtifact());
+                }
             }
         }
         return artifacts;
     }
     
-    public String assignArtifact(RPM rpm) {
+    public String assignArtifact() {
+        RPM rpm = teamService.getTeamMemberById(teamMemberId).getActiveRPM();
         RPMAssignment rpmAssignment = rpmAssignmentService.create(artifactService.findById(artifactId), rpm);
         for (String id : reviewerIds) {
             TeamMember tm = teamService.getTeamMemberById(Integer.parseInt(id));
@@ -69,8 +81,8 @@ public class Dashboard {
         return "/dashboard.xhtml?faces-redirect=true";
     }
     
-    public Set<TeamMember> getCandidateReviewers(RPM rpm) {
-        return rpm.getTeamMember().getTeam().getTeamMembers();
+    public Set<TeamMember> getCandidateReviewers() {        
+        return teamService.getTeamMemberById(teamMemberId).getActiveRPM().getTeam().getTeamMembers();
     }
 
     public void setReviewerIds(List<String> reviewerIds) {
