@@ -26,6 +26,10 @@ public class RPMAssignmentServiceImpl implements RPMAssignmentService {
         return rpmAssignmentRepository.save(new RPMAssignment(a, rpm));
     }
 
-    
+    @Override
+    public RPMAssignment getByArtifactId(Integer id) {
+        return rpmAssignmentRepository.findByArtifactId(id);
+    }
 
+    
 }

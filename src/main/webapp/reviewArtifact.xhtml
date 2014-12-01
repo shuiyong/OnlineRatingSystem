@@ -12,7 +12,7 @@
 
     <ui:define name="content">
         <f:metadata>
-            <f:viewParam name="artifactId" value="#{reviewartifactBean.myArtifactId}"/>
+            <f:viewParam name="reviewAssignmentId" value="#{reviewartifactBean.reviewAssignmentId}"/>
         </f:metadata>
         <h1 id="header">Review Artifact</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
@@ -20,7 +20,7 @@
         
         <h:form class="form-horizontal">
             <p:commandButton value="Download artfact" ajax="false" class="btn btn-default">
-                <p:fileDownload value="#{reviewartifactBean.getArtifactFile(reviewartifactBean.myArtifactId)}" />
+                <p:fileDownload value="#{reviewartifactBean.getArtifactFile(reviewartifactBean.reviewAssignmentId)}" />
             </p:commandButton>
         </h:form>
         

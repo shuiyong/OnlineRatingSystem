@@ -11,5 +11,7 @@ import edu.baylor.ecs.softproj.model.RPMAssignment;
 public interface RPMAssignmentService {
 
     public RPMAssignment create(Artifact a, RPM rpm);
+    
+    public RPMAssignment getByArtifactId(Integer id);
 
 }

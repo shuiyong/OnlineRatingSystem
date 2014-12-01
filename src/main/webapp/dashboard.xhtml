@@ -29,11 +29,11 @@
                         (Submitted by #{artifact.submitter.user.name})
                     </c:forEach>
                     <a href="/submitArtifact.xhtml?teamId=#{teamMember.team.id}">Submit artifact</a>
-                    <ui:fragment rendered="#{reviewartifactBean.getUnreviewedArtifacts(teamMember).size() != 0}">    
+                    <ui:fragment rendered="#{reviewartifactBean.getUnreviewedReviewAssignments(teamMember).size() != 0}">    
                         <h4>Artifacts to review</h4>
                         <ul>
-                        <c:forEach items="#{reviewartifactBean.getUnreviewedArtifacts(teamMember)}" var="artifact">
-                            <li><a href="/reviewArtifact.xhtml?artifactId=#{artifact.id}">#{artifact.name}</a></li>
+                        <c:forEach items="#{reviewartifactBean.getUnreviewedReviewAssignments(teamMember)}" var="reviewAssignment">
+                            <li><a href="/reviewArtifact.xhtml?reviewAssignmentId=#{reviewAssignment.id}">#{reviewAssignment.rpmAssignment.artifact.name}</a></li>
                         </c:forEach>
                         </ul>
                     </ui:fragment>

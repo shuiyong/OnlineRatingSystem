@@ -6,6 +6,7 @@
 package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.Review;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.TeamMember;
@@ -14,6 +15,7 @@ import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.FileService;
+import edu.baylor.ecs.softproj.service.ReviewAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
 import java.util.Set;
 import java.io.IOException;
@@ -46,10 +48,13 @@ public class ReviewArtifact {
     @Autowired
     public TeamService teamService;
     
+    @Autowired
+    public ReviewAssignmentService reviewAssignmentService;
+    
     public StreamedContent file;
     
     private String content;
-    private int myArtifactId;
+    private int reviewAssignmentId;
     private Artifact artifact;
     private String artifactData;
     private String rating;
@@ -93,39 +98,27 @@ public class ReviewArtifact {
         this.content = content;
     }
     
-    public int getMyArtifactId(){
-        return myArtifactId;
+    public int getReviewAssignmentId(){
+        return reviewAssignmentId;
     }
     
-    public void setMyArtifactId(int myArtifactId){
-        this.myArtifactId = myArtifactId;
-    }
-    
-    public void setMyArtifactId(String myArtifactId){
-        this.myArtifactId = Integer.parseInt(myArtifactId);
+    public void setReviewAssignmentId(int myArtifactId){
+        this.reviewAssignmentId = myArtifactId;
     }
     
     public Artifact getArtifact() {
-        if (artifact == null || artifact.getId() != myArtifactId) {
-            artifact = artifactService.findById(myArtifactId);
+        if (artifact == null || artifact.getId() != reviewAssignmentId) {
+            artifact = artifactService.findById(reviewAssignmentId);
         }
         return artifact;
     }
     
-    public Set<ReviewAssignment> getUnreviewedArtifacts(TeamMember teamMember){
+    public Set<ReviewAssignment> getUnreviewedReviewAssignments(TeamMember teamMember){
         return reviewService.getReviewAssignment(teamMember);
     }
     
-    public void createReview(Team team){
-        TeamMember tm = teamService.getTeamMemberByUserAndTeam(userService.getCurrentUser(), team);
-        ReviewAssignment ra = artifactService.getAssignment(
-                tm, 
-                myArtifactId);
-        if(ra != null)
-            reviewService.createReview(content, ra, Integer.parseInt(rating));
-        else{
-            //do something to show the error
-        }
+    public void createReview(){        
+        reviewService.createReview(content, reviewAssignmentService.getById(reviewAssignmentId), Integer.parseInt(rating));
     }
     
 }
