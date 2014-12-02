@@ -11,21 +11,34 @@
     <ui:define name="title">Login</ui:define>
 
     <ui:define name="content">
-        <h:form><h:commandButton action="#{loginBean.createUser}" value="Create user test/test"/></h:form>
+        <h1 id="header">Login to SoftProj</h1>
+        
         <h:form class="form-horizontal">
-            <h1 id="header">Login to SoftProj</h1>
-            <h:panelGrid columns="2" cellpadding="2" class="form-group">
-                <h:outputLabel for="username" value="Username" class="col-lg-1 control-label" />
+            
+            <div class="form-group">
+                <h:outputLabel for="username" value="Username" class="control-label col-xs-2" />
+                <div class="col-xs-10">
                 <h:inputText id="username" value="#{loginBean.username}"  label="Username: " class="form-control"></h:inputText>
-                <h:outputLabel for="password" value="Password" class="col-lg-1 control-label"/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <h:outputLabel for="password" value="Password" class="control-label col-xs-2"/>
+                <div class="col-xs-10">
                 <h:inputSecret id="password" value="#{loginBean.password}" label="Password: " class="form-control"></h:inputSecret>
-            </h:panelGrid>
-            <h:commandButton type="submit" value="Login" action="#{loginBean.login}" class="btn btn-default"/>
-            <c:if test="${param['error'] == 1}">
-                <p>
-                    <h:outputText value="Wrong username or password!"/>
-                </p>
-            </c:if>
+                </div>
+            </div>
+                
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton type="submit" value="Login" action="#{loginBean.login}" class="btn btn-default"/>
+                    <c:if test="${param['error'] == 1}">
+                        <p>
+                            <h:outputText value="Wrong username or password!"/>
+                        </p>
+                    </c:if>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

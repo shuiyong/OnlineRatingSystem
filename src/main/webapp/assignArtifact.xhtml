@@ -17,14 +17,32 @@
         </f:metadata>
         <h1 id="header">Assign Artifact: #{param['artifactId']}</h1>
         <a href="/dashboard.xhtml">Dashboard</a>
+        
         <h:form class="form-horizontal">
-            <h:selectManyListbox value="#{assignArtifactBean.reviewerIds}" class="form-control">
-                <c:forEach items="#{assignArtifactBean.candidateReviewers}" var="candidate">
-                    <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.user.firstName} #{candidate.user.lastName}"/>
-                </c:forEach>
-            </h:selectManyListbox>
-            <p:calendar value="#{assignArtifactBean.deadline}" pattern="MM/dd/yyyy HH:mm:ss"/>
-            <h:commandButton action="#{assignArtifactBean.assignArtifact}" value="Confirm" class="btn btn-default"/>
+            
+            <div class="form-group">
+                <h:outputLabel value="Select Reviewers" class="control-label col-xs-2" />
+                <div class="col-xs-10">
+                <h:selectManyListbox value="#{assignArtifactBean.reviewerIds}" class="form-control">
+                    <c:forEach items="#{assignArtifactBean.candidateReviewers}" var="candidate">
+                        <f:selectItem itemValue="#{candidate.id}" itemLabel="#{candidate.user.firstName} #{candidate.user.lastName}"/>
+                    </c:forEach>
+                </h:selectManyListbox>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <h:outputLabel value="Select Deadline" class="control-label col-xs-2" />
+                <div class="col-xs-10">
+                <p:calendar value="#{assignArtifactBean.deadline}" pattern="MM/dd/yyyy HH:mm:ss"/>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-xs-10">
+                    <h:commandButton action="#{assignArtifactBean.assignArtifact}" value="Confirm" class="btn btn-default"/>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>
