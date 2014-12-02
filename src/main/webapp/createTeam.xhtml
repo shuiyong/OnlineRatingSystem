@@ -15,28 +15,45 @@
         <a href="/dashboard.xhtml">Dashboard</a>
         
         <h:form class="form-horizontal">
-            <h:outputLabel value="Select A Course" class="col-lg-1 control-label" />
-            <h:selectOneListbox value="#{createteamBean.courseId}" class="form-control">
-                <c:forEach items="#{createteamBean.course}" var="courseCandidate">
-                    <f:selectItem itemValue="#{courseCandidate.id}" itemLabel="#{courseCandidate.name}"/>
-                </c:forEach>
-            </h:selectOneListbox>
             
-            <h:outputLabel value="Select An RPM" class="col-lg-1 control-label" />
-            <h:selectOneListbox value="#{createteamBean.rpmId}" class="form-control">
-                <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
-                    <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.firstName} #{rpmCandidate.lastName}"/>
-                </c:forEach>
-            </h:selectOneListbox>
+            <div class="form-group">
+                <h:outputLabel value="Select A Course" class="control-label col-xs-2" />
+                <div class="col-xs-10">
+                <h:selectOneListbox value="#{createteamBean.courseId}" class="form-control">
+                    <c:forEach items="#{createteamBean.course}" var="courseCandidate">
+                        <f:selectItem itemValue="#{courseCandidate.id}" itemLabel="#{courseCandidate.name}"/>
+                    </c:forEach>
+                </h:selectOneListbox>
+                </div>
+            </div>
             
-            <h:outputLabel value="Select Team Members" class="col-lg-1 control-label" />
-            <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
-                <c:forEach items="#{createteamBean.students}" var="studentCandidate">
-                    <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.firstName} #{studentCandidate.lastName}"/>
-                </c:forEach>
-            </h:selectManyListbox>
+            <div class="form-group">
+                <h:outputLabel value="Select An RPM" class="control-label col-xs-2" />
+                <div class="col-xs-10">
+                <h:selectOneListbox value="#{createteamBean.rpmId}" class="form-control">
+                    <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
+                        <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.firstName} #{rpmCandidate.lastName}"/>
+                    </c:forEach>
+                </h:selectOneListbox>
+                </div>
+            </div>
             
-            <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team" class="btn btn-default"/>
+            <div class="form-group">
+                <h:outputLabel value="Select Team Members" class="control-label col-xs-2" />
+                <div class="col-xs-10">
+                <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
+                    <c:forEach items="#{createteamBean.students}" var="studentCandidate">
+                        <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.firstName} #{studentCandidate.lastName}"/>
+                    </c:forEach>
+                </h:selectManyListbox>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-xs-offset-2 col-xs-10">
+                    <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team" class="btn btn-default"/>
+                </div>
+            </div>
         </h:form>
     </ui:define>
 </ui:composition>

@@ -13,7 +13,8 @@
 
     <ui:define name="content">
         <h1 id="header">Dashboard</h1>
-        <p>Yep, you are inside!</p>
+        <a href="/createTeam.xhtml">Create Team</a>
+        <a href="/j_spring_security_logout">Logout</a>
   
         <sec:authorize ifAllGranted="ROLE_ADMIN">
             <a href="/createUser.xhtml">Create User</a>
@@ -33,7 +34,7 @@
                         </h:form>
                         (Submitted by #{artifact.submitter.user.name})
                     </c:forEach>
-                    <a href="/submitArtifact.xhtml?teamId=#{teamMember.team.id}">Submit artifact</a>
+                    <br /><a href="/submitArtifact.xhtml?teamId=#{teamMember.team.id}">Submit artifact</a>
                     <ui:fragment rendered="#{reviewartifactBean.getUnreviewedReviewAssignments(teamMember).size() != 0}">    
                         <h4>Artifacts to review</h4>
                         <ul>
@@ -57,8 +58,5 @@
             </c:forEach>
         </ui:fragment>
 
-        
-        <a href="/createTeam.xhtml">Create Team</a>
-        <a href="/j_spring_security_logout">Logout</a>
     </ui:define>
 </ui:composition>
