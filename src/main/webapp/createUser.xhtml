@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Create User</ui:define>
+
+    <ui:define name="content">
+        <h1 id="header">Create User</h1>
+        <a href="/dashboard.xhtml">Dashboard</a>
+        
+        <h:form class="form-horizontal">
+            <h:outputLabel value="Username / Email address"/>
+            <h:inputText value="#{createUserBean.username}"/>
+            <h:outputLabel value="First name"/>
+            <h:inputText value="#{createUserBean.firstname}"/>
+            <h:outputLabel value="Last name"/>
+            <h:inputText value="#{createUserBean.lastname}"/>
+            <h:outputLabel value="Password"/>
+            <h:inputSecret value="#{createUserBean.password}"/>
+            <h:outputLabel value="Admin?"/>
+            <h:selectBooleanCheckbox value="#{createUserBean.admin}"/>
+            
+            <h:commandButton action="#{createUserBean.createUser()}" value="Create User" class="btn btn-default"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
