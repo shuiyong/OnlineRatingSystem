@@ -48,7 +48,7 @@ public class CreateTeam {
         return userlist;
     }
     
-    public void createTeam(){
+    public String createTeam(){
         Set<User> students = new HashSet<User>();
         for (int i = 0; i < studentIds.size();i++){
             students.add(userService.getById(Integer.parseInt(studentIds.get(i))));
@@ -58,6 +58,7 @@ public class CreateTeam {
         User user = userService.getById(Integer.parseInt(rpmId));
         
         teamService.createTeam(course, students);
+        return "/dashboard.xhtml?faces-redirect=true";
     }
     
     public void setStudentIds(List<String> studentIds) {

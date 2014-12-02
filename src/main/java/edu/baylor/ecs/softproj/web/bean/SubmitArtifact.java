@@ -48,6 +48,10 @@ public class SubmitArtifact {
         this.teamId = teamId;
     }
     
+    public Team getTeam() {
+        return teamService.getTeam(teamId);
+    }
+    
     public UploadedFile getFile() {
         return file;
     }
@@ -64,7 +68,7 @@ public class SubmitArtifact {
         this.file = file;
     }
      
-    public void upload() {
+    public String upload() {
         if (file != null) {
             try {                
                 String path = file.getFileName();
@@ -74,11 +78,13 @@ public class SubmitArtifact {
                 artifactService.create(name, path, tm);
                 
                 FacesMessages.addInfoMessage("Succesful: " + file.getFileName() + " is uploaded.");
+                return "/dashboard.xhtml?faces-redirect=true";
             } catch (IOException ex) {
                 FacesMessages.addInfoMessage("File upload failed.");
             }
         } else {
             FacesMessages.addInfoMessage("No file selected.");
         }
+        return null;
     }
 }

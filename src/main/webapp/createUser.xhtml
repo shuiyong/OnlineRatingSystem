@@ -11,20 +11,39 @@
     <ui:define name="title">Create User</ui:define>
 
     <ui:define name="content">
-        <h1 id="header">Create User</h1>
-        <a href="/dashboard.xhtml">Dashboard</a>
         
+        <h2>Create User</h2>
         <h:form class="form-horizontal">
-            <h:outputLabel value="Username / Email address"/>
-            <h:inputText value="#{createUserBean.username}"/>
-            <h:outputLabel value="First name"/>
-            <h:inputText value="#{createUserBean.firstname}"/>
-            <h:outputLabel value="Last name"/>
-            <h:inputText value="#{createUserBean.lastname}"/>
-            <h:outputLabel value="Password"/>
-            <h:inputSecret value="#{createUserBean.password}"/>
-            <h:outputLabel value="Admin?"/>
-            <h:selectBooleanCheckbox value="#{createUserBean.admin}"/>
+            <div class="form-group">
+                <h:outputLabel value="Username / Email address" class="control-label col-xs-3"/>
+                <div class="col-xs-9">
+                    <h:inputText value="#{createUserBean.username}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="First name" class="control-label col-xs-3"/>
+                <div class="col-xs-9">
+                    <h:inputText value="#{createUserBean.firstname}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Last name" class="control-label col-xs-3"/>
+                <div class="col-xs-9">
+                    <h:inputText value="#{createUserBean.lastname}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Password" class="control-label col-xs-3"/>
+                <div class="col-xs-9">
+                    <h:inputSecret value="#{createUserBean.password}" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <h:outputLabel value="Admin?" class="control-label col-xs-3"/>
+                <div class="col-xs-9">
+                    <h:selectBooleanCheckbox value="#{createUserBean.admin}"/>
+                </div>
+            </div>
             
             <h:commandButton action="#{createUserBean.createUser()}" value="Create User" class="btn btn-default"/>
         </h:form>

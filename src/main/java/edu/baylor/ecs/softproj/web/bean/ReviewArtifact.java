@@ -1,17 +1,15 @@
 package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
-import edu.baylor.ecs.softproj.model.Review;
 import edu.baylor.ecs.softproj.model.ReviewAssignment;
-import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.TeamMember;
-import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.FileService;
 import edu.baylor.ecs.softproj.service.ReviewAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 import java.util.Set;
 import java.io.IOException;
 import java.io.InputStream;
@@ -112,8 +110,10 @@ public class ReviewArtifact {
         return reviewService.getReviewAssignment(teamMember);
     }
     
-    public void createReview(){        
+    public String createReview(){        
         reviewService.createReview(content, reviewAssignmentService.getById(reviewAssignmentId), Integer.parseInt(rating));
+        FacesMessages.addInfoMessage("Review submitted.");
+        return "/dashboard.xhtml?faces-redirect=true";
     }
     
 }

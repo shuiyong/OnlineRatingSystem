@@ -29,8 +29,9 @@ public class CreateUser {
         this.admin = admin;
     }
     
-    public void createUser() {
+    public String createUser() {
         userService.create(username, password, firstname, lastname, admin);
+        return "/dashboard.xhtml?faces-redirect=true";
     }
 
     public String getUsername() {

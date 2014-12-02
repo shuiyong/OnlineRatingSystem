@@ -14,26 +14,26 @@
         <f:metadata>
             <f:viewParam name="teamId" value="#{submitartifactBean.teamId}"/>
         </f:metadata>
-        <h1 id="header">Submit Artifact</h1>
-        <a href="/dashboard.xhtml">Dashboard</a>
-        
+        <h2>Submit Artifact</h2>
+        <p>You are submitting for team <strong>#{submitartifactBean.team.course.name} (team #{submitartifactBean.team.id})</strong></p>
         <h:form enctype="multipart/form-data" class="form-horizontal">
             
             <div class="form-group">
                 <h:outputLabel for="name" value="Artifact Name" class="control-label col-xs-2"/>
-                <div class="col-xs-10">
-                <h:inputText id="name" value="#{submitartifactBean.name}" label="Artifact name: "></h:inputText>
+                <div class="col-xs-5">
+                <h:inputText id="name" value="#{submitartifactBean.name}" class="form-control" label="Artifact name: "></h:inputText>
                 </div>
             </div>
             
             <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10">
+                <label for="j_idt11:j_idt16" class="control-label col-xs-2">File input</label>
+                <div class="col-xs-5">
                     <p:fileUpload value="#{submitartifactBean.file}" mode="simple"/>
                 </div>
             </div>
             
             <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10">
+                <div class="col-xs-offset-2 col-xs-5">
                     <p:commandButton value="Submit" ajax="false" actionListener="#{submitartifactBean.upload}" class="btn btn-default"/>
                 </div>
             </div>

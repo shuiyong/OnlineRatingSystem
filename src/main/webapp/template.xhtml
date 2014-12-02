@@ -4,18 +4,42 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
     <ui:insert name="metadata"/>
 
     <h:head>
         <title>SoftProj | <ui:insert name="title"/></title>
-        <link rel="stylesheet" type="text/css" href="resources/custom.css" />
+        <link rel="stylesheet" type="text/css" href="resources/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="resources/bootstrap-theme.css" />
+        <link rel="stylesheet" type="text/css" href="resources/custom.css" />
     </h:head>
     <h:body>
+        
     	<div class="container">
-        	<ui:insert name="content"/>
+            <div class="container-fluid"><div class="row">
+                <h1 class="col-md-8 ">Softproj</h1>
+                <div id="loggedUser" class="col-md-4 text-right">Logged as <strong>#{dashboardBean.currentUser.name}</strong></div>
+            </div></div>
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/dashboard.xhtml">Dashboard</a></li>
+                    <sec:authorize ifAllGranted="ROLE_ADMIN">
+                        <li><a href="/createUser.xhtml">Create User</a></li>
+                    </sec:authorize>
+                        
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/j_spring_security_logout">Logout</a></li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <p:growl />
+            
+            <ui:insert name="content"/>
         </div>
     </h:body>
 </html>

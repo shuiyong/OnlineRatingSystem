@@ -7,6 +7,7 @@ insert into MYUSER values (4, 'test4', 'Candidate Reviewer 2', False, 'Test', '$
 insert into MYUSER values (5, 'test5', 'Candidate Reviewer 3', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
 insert into MYUSER values (6, 'test6', 'RPM1', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
 insert into MYUSER values (7, 'test7', 'RPM2', False, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
+insert into MYUSER values (8, 'test8', 'Admin', True, 'Test', '$2a$10$O7DfALJgETxtT4C.n2b/4eD.BPqwIerh2mpuDxxe8GIATY8niTpLe');
 
 insert into COURSE values (1, 'Software Engineering', 1);
 

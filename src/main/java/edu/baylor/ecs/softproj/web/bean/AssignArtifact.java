@@ -67,7 +67,7 @@ public class AssignArtifact {
     }
     
     public List<TeamMember> getCandidateReviewers() {        
-        return new ArrayList(teamService.getTeamMemberById(teamMemberId).getActiveRPM().getTeam().getTeamMembers());
+        return new ArrayList(teamService.getTeamMemberById(teamMemberId).getTeam().getTeamMembers());
     }
 
     public void setReviewerIds(List<String> reviewerIds) {

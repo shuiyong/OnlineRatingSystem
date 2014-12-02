@@ -1,16 +1,17 @@
 package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
+import edu.baylor.ecs.softproj.model.Course;
 import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
 import edu.baylor.ecs.softproj.model.TeamMember;
+import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.service.UserService;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,10 @@ public class Dashboard {
 
     public void setTeamMemberId(Integer teamMemberId) {
         this.teamMemberId = teamMemberId;
+    }
+    
+    public User getCurrentUser() {
+        return userService.getCurrentUser();
     }
         
     public Set<TeamMember> getTeamMembers() {
