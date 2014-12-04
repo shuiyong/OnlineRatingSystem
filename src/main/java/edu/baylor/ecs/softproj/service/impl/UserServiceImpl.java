@@ -75,6 +75,7 @@ public class UserServiceImpl implements UserService {
     
     @Override
     public Set<Course> getCourse(User user){
+        //This is completely wrong!!!
         return user.getLecturerOf();
     }
 }
