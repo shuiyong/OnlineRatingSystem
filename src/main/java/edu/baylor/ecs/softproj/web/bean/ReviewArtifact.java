@@ -13,6 +13,7 @@ import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 import java.util.Set;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 
 /**
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author yong shui <yong_shui@baylor.edu>
  */
 @Controller("reviewartifactBean")
@@ -107,7 +109,14 @@ public class ReviewArtifact {
     }
     
     public Set<ReviewAssignment> getUnreviewedReviewAssignments(TeamMember teamMember){
-        return reviewService.getReviewAssignment(teamMember);
+        Set<ReviewAssignment> ras = new HashSet<ReviewAssignment>();
+        for (ReviewAssignment ra: reviewService.getReviewAssignment(teamMember)) {
+            // if rpm hasn't finished rating yet
+            if (ra.getRpmAssignment().getRPMToArtifactRating() == null) {
+                ras.add(ra);
+            }
+        }
+        return ras;
     }
     
     public String createReview(){        

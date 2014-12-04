@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author yong shui <yong_shui@baylor.edu>
  */
 @Transactional
@@ -20,5 +21,10 @@ public class CourseServiceImpl implements CourseService{
     @Override
     public Course getById(Integer id){
         return courseRepository.findOne(id);
+    }
+
+    @Override
+    public void create(Course course) {
+        courseRepository.saveAndFlush(course);
     }
 }

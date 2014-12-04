@@ -31,7 +31,7 @@
                 <div class="col-xs-10">
                 <h:selectOneListbox value="#{createteamBean.rpmId}" class="form-control">
                     <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
-                        <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.firstName} #{rpmCandidate.lastName}"/>
+                        <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.name}"/>
                     </c:forEach>
                 </h:selectOneListbox>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="col-xs-10">
                 <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
                     <c:forEach items="#{createteamBean.students}" var="studentCandidate">
-                        <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.firstName} #{studentCandidate.lastName}"/>
+                        <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.name}"/>
                     </c:forEach>
                 </h:selectManyListbox>
                 </div>

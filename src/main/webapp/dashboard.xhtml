@@ -13,22 +13,46 @@
 
     <ui:define name="content">
         
+        <!-- Lecturer -->
         <ui:fragment rendered="#{dashboardBean.currentUser.lecturerOf.size() != 0}">   
             <h3>You are lecturer</h3>
             <p>Below are your courses and their teams</p>
             <div class="row">
+                
+            <!-- Courses -->
             <c:forEach items="#{dashboardBean.currentUser.lecturerOf}" var="course"> 
                 <div class="col-md-6"><div class="panel panel-default">
                     <div class="panel-heading">#{course.name}</div>
                     <div class="panel-body">
-                        <ul class="list-group">
-                            <c:forEach items="#{course.teams}" var="team">
-                                <li class="list-group-item">
-                                    Team #{team.id}
-                                    <span class="badge">#{team.teamMembers.size()}</span>
-                                </li>
-                            </c:forEach>
-                        </ul>
+                        
+                        <!-- Teams -->
+                        <ui:fragment rendered="#{!course.teams.isEmpty()}">
+                            <ul class="list-group">
+                                <c:forEach items="#{course.teams}" var="team">
+                                    <li class="list-group-item">
+                                        Team #{team.id}
+                                        <span class="badge">#{team.teamMembers.size()}</span>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                            
+                            <!-- Unrated artifacts -->
+                            <ui:fragment rendered="#{dashboardBean.getLecturerUnratedRpmAssignments(course).size() != 0}">
+                                <p>Unrated artifacts:</p>
+                                <ul class="list-group">
+                                    <c:forEach items="#{dashboardBean.getLecturerUnratedRpmAssignments(course)}" var="rpmAssignment">
+                                        <li class="list-group-item">#{rpmAssignment.artifact.name}</li>
+                                    </c:forEach>
+                                </ul>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{dashboardBean.getLecturerUnratedRpmAssignments(course).size() == 0}">
+                                <p>Currently there are no artifacts to rate.</p>
+                            </ui:fragment>
+                        </ui:fragment>
+                            
+                        <ui:fragment rendered="#{course.teams.isEmpty()}">
+                            <p>Currently there are no teams.</p>
+                        </ui:fragment>
                     </div>
                 </div></div>
             </c:forEach>
@@ -36,10 +60,13 @@
             <a class="btn btn-default" href="/createTeam.xhtml">Create team</a>
         </ui:fragment>
               
+        <!-- Team member -->
         <ui:fragment rendered="#{dashboardBean.teamMembers.size() != 0}">             
             <c:forEach items="#{dashboardBean.teamMembers}" var="teamMember">   
                 <h3>#{teamMember.team.course.name} (team #{teamMember.team.id})</h3>
                 <div class="row">
+                    
+                    <!-- Submitted artifacts -->
                     <div class="col-md-6"><div class="panel panel-default">
                         <div class="panel-heading">Submitted artifacts</div>
                         <div class="panel-body">
@@ -58,6 +85,8 @@
                             <a class="btn btn-default" href="/submitArtifact.xhtml?teamId=#{teamMember.team.id}">Submit artifact</a>
                         </div>
                     </div></div>
+                    
+                    <!-- Artifacts to Review -->
                     <ui:fragment rendered="#{reviewartifactBean.getUnreviewedReviewAssignments(teamMember).size() != 0}">
                     <div class="col-md-6"><div class="panel panel-default">     
                         <div class="panel-heading">Artifacts to review</div>
@@ -66,17 +95,23 @@
                             <c:forEach items="#{reviewartifactBean.getUnreviewedReviewAssignments(teamMember)}" var="reviewAssignment">
                                 <li class="list-group-item">
                                     <a href="/reviewArtifact.xhtml?reviewAssignmentId=#{reviewAssignment.id}">#{reviewAssignment.rpmAssignment.artifact.name}</a>
-                                    <span class="badge">#{reviewAssignment.reviews.size()}</span>
+                                    <ui:fragment rendered="#{reviewAssignment.reviews.isEmpty()}">
+                                        <p class="pull-right">due #{reviewAssignment.deadline.toLocaleString()}</p>
+                                    </ui:fragment>
                                 </li>
                             </c:forEach>
                             </ul>
                         </div>
                     </div></div>
                     </ui:fragment>
+                    
+                    <!-- RPM -->
                     <ui:fragment rendered="#{not empty teamMember.activeRPM}"> 
                     <div class="col-md-6"><div class="panel panel-default">
                         <div class="panel-heading">You are RPM of team #{teamMember.activeRPM.team.id}</div>
                         <div class="panel-body">
+                            
+                            <!-- Unassigned artifacts -->
                             <ui:fragment rendered="#{dashboardBean.getUnassignedArtifacts(teamMember.activeRPM).size() != 0}">
                                 <p>Unassigned artifacts:</p>
                                 <ul class="list-group">
@@ -87,6 +122,19 @@
                             </ui:fragment>
                             <ui:fragment rendered="#{dashboardBean.getUnassignedArtifacts(teamMember.activeRPM).size() == 0}">
                                 <p>Currently there are no artifacts to assign.</p>
+                            </ui:fragment>
+                            
+                            <!-- Unrated artifacts -->
+                            <ui:fragment rendered="#{dashboardBean.getUnratedRpmAssignments(teamMember.activeRPM).size() != 0}">
+                                <p>Unrated artifacts:</p>
+                                <ul class="list-group">
+                                    <c:forEach items="#{dashboardBean.getUnratedRpmAssignments(teamMember.activeRPM)}" var="rpmAssignment">
+                                        <li class="list-group-item"><a href="/rateArtifact.xhtml?rpmAssignmentId=#{rpmAssignment.id}">#{rpmAssignment.artifact.name}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{dashboardBean.getUnratedRpmAssignments(teamMember.activeRPM).size() == 0}">
+                                <p>Currently there are no artifacts to rate.</p>
                             </ui:fragment>
                         </div>
                     </div></div>

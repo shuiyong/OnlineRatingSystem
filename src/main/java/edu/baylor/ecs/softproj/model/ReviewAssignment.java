@@ -1,6 +1,7 @@
 package edu.baylor.ecs.softproj.model;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -82,6 +83,21 @@ public class ReviewAssignment extends AbstractEntity {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+    
+    public Review getLastReview() {
+        if (reviews.isEmpty()) {
+            return null;
+        }
+        Iterator<Review> it = reviews.iterator();
+        Review r = it.next();
+        while (it.hasNext()) {
+            Review r2 = it.next();
+            if (r.getSubmitted().before(r2.getSubmitted())) {
+                r = r2;
+            }
+        }
+        return r;
     }
 
 }

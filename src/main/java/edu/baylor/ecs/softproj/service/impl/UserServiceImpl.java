@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  * @author yong shui <yong_shui@baylor.edu>
  */
@@ -46,6 +47,11 @@ public class UserServiceImpl implements UserService {
     public User getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return getByEmail(email);
+    }
+    
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     @Override

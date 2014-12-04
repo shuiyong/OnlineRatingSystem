@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  */
 @Transactional
@@ -29,6 +30,16 @@ public class RPMAssignmentServiceImpl implements RPMAssignmentService {
     @Override
     public RPMAssignment getByArtifactId(Integer id) {
         return rpmAssignmentRepository.findByArtifactId(id);
+    }
+
+    @Override
+    public RPMAssignment update(RPMAssignment rpmAssignment) {
+        return rpmAssignmentRepository.save(rpmAssignment);
+    }
+
+    @Override
+    public RPMAssignment getById(Integer id) {
+        return rpmAssignmentRepository.findOne(id);
     }
 
     

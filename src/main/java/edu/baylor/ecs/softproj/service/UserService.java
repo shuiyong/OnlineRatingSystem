@@ -7,6 +7,7 @@ import edu.baylor.ecs.softproj.model.Course;
 /**
  * Interface for the service layer providing operations with users.
  *
+ * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
  * @author yong shui <yong_shui@baylor.edu>
  */
@@ -24,6 +25,13 @@ public interface UserService {
 
     public User getByEmail(String email);
 
+    /**
+     * Get all users in the system.
+     * 
+     * @return all users in the system
+     */
+    public List<User> getAll();
+    
     /**
      * Returns a persistent user object of a user that is currently logged on to
      * this session.
