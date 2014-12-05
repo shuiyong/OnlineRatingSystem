@@ -2,6 +2,10 @@ package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.model.Team;
+import edu.baylor.ecs.softproj.model.TeamMember;
+import edu.baylor.ecs.softproj.repository.CourseRepository;
+import edu.baylor.ecs.softproj.repository.TeamRepository;
 import edu.baylor.ecs.softproj.repository.UserRepository;
 import edu.baylor.ecs.softproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.List;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  *
@@ -26,6 +31,12 @@ public class UserServiceImpl implements UserService {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private CourseRepository courserepository;
+    
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Override
     public User create(String email, String password, String firstName, String lastName, Boolean isAdmin) {
@@ -63,19 +74,38 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-    public List<User> getStudents(User user){
-        List<User> result = new ArrayList<User>();
-        if(user.getLecturerOf().isEmpty()){
-            return result;
-        }else{
-            result = userRepository.findAll();
-            return result;
+    public List<User> getStudents(User user, Integer courseId){
+        List<User> result = userRepository.findByIsAdmin(Boolean.FALSE);
+        result.remove(user);
+        Course c = courserepository.findOne(courseId);
+        Set<Team> teams = c.getTeams();
+        for (Team team : teams) {
+            for (TeamMember tm : team.getTeamMembers()) {
+                result.remove(tm.getUser());
+            }
         }
+        return result;
     }
     
     @Override
     public Set<Course> getCourse(User user){
         //This is completely wrong!!!
         return user.getLecturerOf();
+    }
+
+    @Override
+    public Set<TeamMember> getAvailableRPMs(Integer teamId) {
+        Set<TeamMember> users = new HashSet<TeamMember>();
+        Team team = teamRepository.findOne(teamId);
+        Course course = team.getCourse();
+        Set<Team> teams = course.getTeams();
+        teams.remove(team);
+        for (Team t : teams) {
+            Set<TeamMember> tms = t.getTeamMembers();
+            for (TeamMember tm : tms) {
+                users.add(tm);
+            }
+        }
+        return users;
     }
 }

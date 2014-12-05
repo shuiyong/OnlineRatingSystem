@@ -30,7 +30,10 @@
                             <ul class="list-group">
                                 <c:forEach items="#{course.teams}" var="team">
                                     <li class="list-group-item">
-                                        Team #{team.id}
+                                        Team #{team.id} 
+                                        <ui:fragment rendered="#{!dashboardBean.hasRpm(team.id)}">
+                                            <a href="/assignRpm.xhtml?teamId=#{team.id}">(Assign RPM)</a>
+                                        </ui:fragment>
                                         <span class="badge">#{team.teamMembers.size()}</span>
                                     </li>
                                 </c:forEach>
@@ -52,11 +55,11 @@
                         <ui:fragment rendered="#{course.teams.isEmpty()}">
                             <p>Currently there are no teams.</p>
                         </ui:fragment>
+                        <a class="btn btn-default" href="/createTeam.xhtml?courseId=#{course.id}">Create team</a>
                     </div>
                 </div></div>
             </c:forEach>
             </div>
-            <a class="btn btn-default" href="/createTeam.xhtml">Create team</a>
         </ui:fragment>
               
         <!-- Team member -->

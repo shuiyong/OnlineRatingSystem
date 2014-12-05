@@ -11,48 +11,33 @@
     <ui:define name="title">Create Team</ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="courseId" value="#{createteamBean.courseId}"/>
+        </f:metadata>
         
-        <h2>Create Team</h2>
-        <h:form class="form-horizontal">
-            
-            <div class="form-group">
-                <h:outputLabel value="Select A Course" class="control-label col-xs-2" />
-                <div class="col-xs-10">
-                <h:selectOneListbox value="#{createteamBean.courseId}" class="form-control">
-                    <c:forEach items="#{createteamBean.course}" var="courseCandidate">
-                        <f:selectItem itemValue="#{courseCandidate.id}" itemLabel="#{courseCandidate.name}"/>
-                    </c:forEach>
-                </h:selectOneListbox>
+        <h2>Create Team in course: #{createteamBean.name}</h2>
+        <h:form class="form-horizontal">            
+            <ui:fragment rendered="#{!createteamBean.students.isEmpty()}">
+                <div class="form-group">
+                    <h:outputLabel value="Select Team Members" class="control-label col-xs-2" />
+                    <div class="col-xs-10">
+                    <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
+                        <c:forEach items="#{createteamBean.students}" var="studentCandidate">
+                            <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.name}"/>
+                        </c:forEach>
+                    </h:selectManyListbox>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <h:outputLabel value="Select An RPM" class="control-label col-xs-2" />
-                <div class="col-xs-10">
-                <h:selectOneListbox value="#{createteamBean.rpmId}" class="form-control">
-                    <c:forEach items="#{createteamBean.students}" var="rpmCandidate">
-                        <f:selectItem itemValue="#{rpmCandidate.id}" itemLabel="#{rpmCandidate.name}"/>
-                    </c:forEach>
-                </h:selectOneListbox>
+
+                <div class="form-group">
+                    <div class="col-xs-offset-2 col-xs-10">
+                        <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team" class="btn btn-default"/>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <h:outputLabel value="Select Team Members" class="control-label col-xs-2" />
-                <div class="col-xs-10">
-                <h:selectManyListbox value="#{createteamBean.studentIds}" class="form-control">
-                    <c:forEach items="#{createteamBean.students}" var="studentCandidate">
-                        <f:selectItem itemValue="#{studentCandidate.id}" itemLabel="#{studentCandidate.name}"/>
-                    </c:forEach>
-                </h:selectManyListbox>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <div class="col-xs-offset-2 col-xs-10">
-                    <h:commandButton action="#{createteamBean.createTeam()}" value="Create Team" class="btn btn-default"/>
-                </div>
-            </div>
+            </ui:fragment>
+            <ui:fragment rendered="#{createteamBean.students.isEmpty()}">
+                <p>There are no unassigned users available for this course.</p>
+            </ui:fragment>
         </h:form>
     </ui:define>
 </ui:composition>

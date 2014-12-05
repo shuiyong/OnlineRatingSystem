@@ -11,13 +11,14 @@ import java.util.Set;
 import java.util.HashSet;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.model.Course;
-import java.util.Iterator;
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
+ * @author yong shui <Vaclav_Cibur@baylor.edu>
+ * 
  */
 @Controller("createteamBean")
-@Scope("request")
+@Scope("session")
 public class CreateTeam {
     @Autowired
     public TeamService teamService;
@@ -31,6 +32,15 @@ public class CreateTeam {
     private List<String> studentIds;
     private String courseId;
     private String rpmId;
+    private String name;
+
+    public String getName() {
+        return courseService.getById(Integer.parseInt(courseId)).getName();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     public Set<Course> getCourse(){
         User user = userService.getCurrentUser();
@@ -38,14 +48,7 @@ public class CreateTeam {
     }
     
     public List<User> getStudents(){
-        User user = userService.getCurrentUser();
-        List<User> userlist= userService.getStudents(user);
-        for(Iterator<User> iterator = userlist.iterator(); iterator.hasNext();){
-            User tmp = iterator.next();
-            if(tmp.getId().equals(user.getId()))
-                iterator.remove();
-        }
-        return userlist;
+        return userService.getStudents(userService.getCurrentUser(), Integer.parseInt(courseId));
     }
     
     public String createTeam(){
@@ -53,10 +56,7 @@ public class CreateTeam {
         for (int i = 0; i < studentIds.size();i++){
             students.add(userService.getById(Integer.parseInt(studentIds.get(i))));
         }
-        
-        Course course = courseService.getById(Integer.parseInt(courseId));
-        User user = userService.getById(Integer.parseInt(rpmId));
-        
+        Course course = courseService.getById(Integer.parseInt(courseId));        
         teamService.createTeam(course, students);
         return "/dashboard.xhtml?faces-redirect=true";
     }

@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Set;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.model.TeamMember;
 
 /**
  * Interface for the service layer providing operations with users.
@@ -51,11 +52,13 @@ public interface UserService {
     /**
      * Return a set of students candidates to create a team
      */
-    public List<User> getStudents(User user);
+    public List<User> getStudents(User user, Integer courseId);
     
     /**
      * Return the course a lecture have
      */
     public Set<Course> getCourse(User user);
+    
+    public Set<TeamMember> getAvailableRPMs(Integer teamId);
 
 }

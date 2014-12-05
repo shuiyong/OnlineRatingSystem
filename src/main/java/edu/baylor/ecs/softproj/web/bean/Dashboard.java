@@ -126,6 +126,10 @@ public class Dashboard {
         return "/dashboard.xhtml?faces-redirect=true";
     }
     
+    public boolean hasRpm(Integer id) {
+        return teamService.hasRpm(id);
+    }
+    
     public Set<TeamMember> getCandidateReviewers() {        
         return teamService.getTeamMemberById(teamMemberId).getActiveRPM().getTeam().getTeamMembers();
     }

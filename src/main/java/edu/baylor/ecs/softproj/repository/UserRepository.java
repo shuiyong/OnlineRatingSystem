@@ -1,6 +1,7 @@
 package edu.baylor.ecs.softproj.repository;
 
 import edu.baylor.ecs.softproj.model.User;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,4 +15,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByEmail(String email);
 
+    List<User> findByIsAdmin(Boolean isAdmin);
+    
 }

@@ -2,8 +2,10 @@ package edu.baylor.ecs.softproj.service.impl;
 
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.TeamMember;
 import edu.baylor.ecs.softproj.model.User;
+import edu.baylor.ecs.softproj.repository.RPMRepository;
 import edu.baylor.ecs.softproj.repository.TeamMemberRepository;
 import edu.baylor.ecs.softproj.repository.TeamRepository;
 import edu.baylor.ecs.softproj.service.TeamService;
@@ -28,6 +30,9 @@ public class TeamServiceImpl implements TeamService {
     
     @Autowired
     private TeamMemberRepository teamMemberRepository;
+    
+    @Autowired
+    private RPMRepository rpmRepository;
 
     @Override
     public Team createTeam(Course course, Set<User> users){
@@ -37,6 +42,7 @@ public class TeamServiceImpl implements TeamService {
             TeamMember tm = new TeamMember(user, team);
             user.getTeamMembers().add(tm);
             teamMembers.add(tm);
+            teamMemberRepository.save(tm);
         }
         team.setTeamMembers(teamMembers);
         teamRepository.save(team);
@@ -56,6 +62,25 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public TeamMember getTeamMemberByUserAndTeam(User user, Team team) {
         return teamMemberRepository.findByUserAndTeam(user, team);
+    }
+
+    @Override
+    public boolean hasRpm(Integer teamId) {
+        Set<RPM> rpms = teamRepository.findOne(teamId).getRpms();
+        for (RPM rpm : rpms) {
+            if (rpm.isActive()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void assignRpm(Team team, Integer tmId) {
+        TeamMember tm = teamMemberRepository.findOne(tmId);
+        RPM rpm = new RPM(tm, team);
+        rpm.setActive(true);
+        rpmRepository.save(rpm);
     }
     
 }

@@ -18,4 +18,6 @@ public interface TeamService {
     public Team getTeam(Integer teamId);
     public TeamMember getTeamMemberById(Integer id);
     public TeamMember getTeamMemberByUserAndTeam(User user, Team team);
+    public boolean hasRpm(Integer teamId);
+    public void assignRpm(Team team, Integer tmId);
 }
