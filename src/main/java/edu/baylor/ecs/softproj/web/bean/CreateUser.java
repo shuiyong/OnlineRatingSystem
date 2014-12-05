@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import edu.baylor.ecs.softproj.service.UserService;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 /**
  *
  * @author Vaclav Cibur <Vaclav_Cibur@baylor.edu>
@@ -31,6 +32,7 @@ public class CreateUser {
     
     public String createUser() {
         userService.create(username, password, firstname, lastname, admin);
+        FacesMessages.addInfoMessage("User created.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
 

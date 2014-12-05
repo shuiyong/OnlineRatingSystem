@@ -14,6 +14,7 @@ import edu.baylor.ecs.softproj.model.Course;
 import edu.baylor.ecs.softproj.model.RPM;
 import edu.baylor.ecs.softproj.model.Team;
 import edu.baylor.ecs.softproj.model.TeamMember;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
@@ -42,6 +43,7 @@ public class AssignRpm {
     public String assignRpm() {
         Team team = teamService.getTeam(Integer.parseInt(teamId));
         teamService.assignRpm(team, Integer.parseInt(rpmId));
+        FacesMessages.addInfoMessage("RPM assigned.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
 

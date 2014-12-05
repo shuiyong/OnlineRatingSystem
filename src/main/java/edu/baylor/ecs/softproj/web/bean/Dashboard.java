@@ -12,6 +12,7 @@ import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.service.UserService;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -41,22 +42,6 @@ public class Dashboard {
     
     @Autowired
     public RPMAssignmentService rpmAssignmentService;
-    
-    private List<String> reviewerIds;
-    
-    private Date deadline;
-    
-    private Integer artifactId;
-    
-    private Integer teamMemberId;
-
-    public Integer getTeamMemberId() {
-        return teamMemberId;
-    }
-
-    public void setTeamMemberId(Integer teamMemberId) {
-        this.teamMemberId = teamMemberId;
-    }
     
     public User getCurrentUser() {
         return userService.getCurrentUser();
@@ -114,47 +99,8 @@ public class Dashboard {
         }
         return rpmAssignemnts;
     }
-   
-    public String assignArtifact() {
-        RPM rpm = teamService.getTeamMemberById(teamMemberId).getActiveRPM();
-        RPMAssignment rpmAssignment = rpmAssignmentService.create(artifactService.findById(artifactId), rpm);
-        for (String id : reviewerIds) {
-            TeamMember tm = teamService.getTeamMemberById(Integer.parseInt(id));
-            artifactService.assgnArtifact(rpmAssignment, tm, deadline);
-        }
-        
-        return "/dashboard.xhtml?faces-redirect=true";
-    }
     
     public boolean hasRpm(Integer id) {
         return teamService.hasRpm(id);
-    }
-    
-    public Set<TeamMember> getCandidateReviewers() {        
-        return teamService.getTeamMemberById(teamMemberId).getActiveRPM().getTeam().getTeamMembers();
-    }
-
-    public void setReviewerIds(List<String> reviewerIds) {
-        this.reviewerIds = reviewerIds;
-    }
-
-    public List<String> getReviewerIds() {
-        return reviewerIds;
-    }
-
-    public void setDeadline(Date deadline) {
-        this.deadline = deadline;
-    }
-
-    public Date getDeadline() {
-        return deadline;
-    }
-
-    public Integer getArtifactId() {
-        return artifactId;
-    }
-
-    public void setArtifactId(Integer artifactId) {
-        this.artifactId = artifactId;
     }
 }

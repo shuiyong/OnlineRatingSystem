@@ -7,6 +7,7 @@ import edu.baylor.ecs.softproj.service.ArtifactService;
 import edu.baylor.ecs.softproj.service.RPMAssignmentService;
 import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.service.UserService;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,7 +63,7 @@ public class AssignArtifact {
             TeamMember tm = teamService.getTeamMemberById(Integer.parseInt(id));
             artifactService.assgnArtifact(rpmAssignment, tm, deadline);
         }
-        
+        FacesMessages.addInfoMessage("Artifact assigned.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
     

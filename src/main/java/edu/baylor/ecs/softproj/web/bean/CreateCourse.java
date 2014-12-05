@@ -8,6 +8,7 @@ import edu.baylor.ecs.softproj.service.CourseService;
 import java.util.List;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 /**
  *
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
@@ -48,7 +49,7 @@ public class CreateCourse {
         Course course = new Course(name, userService.getById(lecturerId));
         
         courseService.create(course);
-        
+        FacesMessages.addInfoMessage("Course created.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
 }

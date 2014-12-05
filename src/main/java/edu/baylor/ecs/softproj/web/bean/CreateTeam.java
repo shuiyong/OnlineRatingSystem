@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.HashSet;
 import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.model.Course;
+import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 /**
  *
  * @author yong shui <yong_shui@baylor.edu>
@@ -58,6 +59,7 @@ public class CreateTeam {
         }
         Course course = courseService.getById(Integer.parseInt(courseId));        
         teamService.createTeam(course, students);
+        FacesMessages.addInfoMessage("Team created.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
     
