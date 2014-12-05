@@ -47,5 +47,6 @@
             
             <h:commandButton action="#{createUserBean.createUser()}" value="Create User" class="btn btn-default"/>
         </h:form>
+        <c:set target="#{flash}" property="keepMessages" value="true" />
     </ui:define>
 </ui:composition>
