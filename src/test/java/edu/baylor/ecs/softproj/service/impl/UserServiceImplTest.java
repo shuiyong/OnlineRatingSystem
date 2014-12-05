@@ -5,7 +5,6 @@ import edu.baylor.ecs.softproj.model.User;
 import edu.baylor.ecs.softproj.repository.CourseRepository;
 import edu.baylor.ecs.softproj.repository.UserRepository;
 import edu.baylor.ecs.softproj.service.UserService;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.junit.runner.RunWith;
@@ -105,9 +104,10 @@ public class UserServiceImplTest {
     @Test
     public void testGetStudents() {
         User u = new User("random", "random", "random", "random", true);
-        u.setLecturerOf(new HashSet<Course>());
-        userRepository.save(u);
-        List<User> students = userService.getStudents(u);
+        u = userRepository.save(u);
+        Course c = new Course("random", u);
+        c = courseRepository.save(c);
+        List<User> students = userService.getStudents(u, c.getId());
         assertTrue(students.isEmpty());
     }
     

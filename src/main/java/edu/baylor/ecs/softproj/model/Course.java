@@ -1,5 +1,6 @@
 package edu.baylor.ecs.softproj.model;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Course extends AbstractEntity {
     private User lecturer;
     
     @OneToMany(mappedBy = "course")
-    private Set<Team> teams;
+    private Set<Team> teams = new HashSet<Team>();
 
     public Course() {
     }
