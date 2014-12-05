@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition template="template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="title">Rate Artifact (Lecturer)</ui:define>
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="rpmAssignmentId" value="#{rateArtifactLecturerBean.rpmAssignmentId}"/>
+        </f:metadata>
+        <h2>Rate Artifact (as Lecturer)</h2>
+        <p>Here you can rate artifact <strong>#{rateArtifactLecturerBean.rpmAssignment.artifact.name}</strong>, its RPM and its Reviewers</p>
+        
+        <h:form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <p:commandButton value="Download artifact" ajax="false" class="btn btn-default">
+                        <p:fileDownload value="#{rateArtifactLecturerBean.getArtifactFile(rateArtifactLecturerBean.rpmAssignment.artifact.id)}" />
+                    </p:commandButton>
+                </div>
+            </div>
+
+            <h3>Submitted Reviews</h3>
+            <div class="row">
+                <c:forEach items="#{rateArtifactLecturerBean.rpmAssignment.reviewAssignments}" var="reviewAssignment">
+                    <div class="col-md-6"><div class="panel panel-default">
+                        <div class="panel-heading reviewTabs">
+                            #{reviewAssignment.reviewer.user.name}
+                            <ui:fragment rendered="#{reviewAssignment.reviews.size() > 1}">
+                                <span class="pull-right"><ul class="nav nav-tabs">
+                                        <c:forEach items="#{reviewAssignment.reviews}" var="review">
+                                        <li class="#{reviewAssignment.lastReview.id.equals(review.id) ? 'active' : ''}" ><a href="#tab#{review.id}" data-toggle="tab">#{review.submittedShort}</a></li>
+                                    </c:forEach>
+                                </ul></span>
+                            </ui:fragment>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <c:forEach items="#{reviewAssignment.reviews}" var="review">
+                                    <div class="tab-pane#{reviewAssignment.lastReview.id.equals(review.id) ? ' active' : ''}" id="tab#{review.id}">
+                                        <p>Rating: <strong>#{review.reviewerToArtifactRating}</strong></p>
+                                        <p>#{review.content}</p>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-2">
+                                    <h:outputLabel for="rating#{reviewAssignment.id}" value="Rating: " class="control-label" style="padding-top: 0"/>
+                                </div>
+                                <div class="col-xs-4">
+                                    <h:selectOneMenu id="rating#{reviewAssignment.id}" value="#{rateArtifactLecturerBean.reviewerRating[reviewAssignment.id]}" class="form-control">
+                                        <f:selectItem itemLabel="1" itemValue="1" />
+                                        <f:selectItem itemLabel="2" itemValue="2" />
+                                        <f:selectItem itemLabel="3" itemValue="3" />
+                                        <f:selectItem itemLabel="4" itemValue="4" />
+                                        <f:selectItem itemLabel="5" itemValue="5" />
+                                        <f:selectItem itemLabel="6" itemValue="6" />
+                                        <f:selectItem itemLabel="7" itemValue="7" />
+                                        <f:selectItem itemLabel="8" itemValue="8" />
+                                        <f:selectItem itemLabel="9" itemValue="9" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                </c:forEach>
+
+                <div class="col-md-6"><div class="panel panel-default">
+                    <div class="panel-heading"><strong>RPM</strong> #{rateArtifactLecturerBean.rpmAssignment.rpm.teamMember.user.name}</div>
+                    <div class="panel-body">
+                        <p>Rating: <strong>#{rateArtifactLecturerBean.rpmAssignment.RPMToArtifactRating}</strong></p>
+                        <p>#{rateArtifactLecturerBean.rpmAssignment.comment}</p>
+                        <div class="form-group">
+                            <div class="col-xs-3">
+                                <p:outputLabel for="rpmRating" value="RPM Rating: " class="control-label" style="padding-top: 0"/>
+                            </div>
+                            <div class="col-xs-4">
+                                <h:selectOneMenu id="rpmRating" value="#{rateArtifactLecturerBean.rpmRating}" class="form-control">
+                                    <f:selectItem itemLabel="1" itemValue="1" />
+                                    <f:selectItem itemLabel="2" itemValue="2" />
+                                    <f:selectItem itemLabel="3" itemValue="3" />
+                                    <f:selectItem itemLabel="4" itemValue="4" />
+                                    <f:selectItem itemLabel="5" itemValue="5" />
+                                    <f:selectItem itemLabel="6" itemValue="6" />
+                                    <f:selectItem itemLabel="7" itemValue="7" />
+                                    <f:selectItem itemLabel="8" itemValue="8" />
+                                    <f:selectItem itemLabel="9" itemValue="9" />
+                                    <f:selectItem itemLabel="10" itemValue="10" />
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <p:outputLabel for="artifactRating" value="Artifact Rating: " class="control-label" style="padding-top: 0"/>
+                </div>
+                <div class="col-xs-4">
+                    <h:selectOneMenu id="artifactRating" value="#{rateArtifactLecturerBean.artifactRating}" class="form-control">
+                        <f:selectItem itemLabel="1" itemValue="1" />
+                        <f:selectItem itemLabel="2" itemValue="2" />
+                        <f:selectItem itemLabel="3" itemValue="3" />
+                        <f:selectItem itemLabel="4" itemValue="4" />
+                        <f:selectItem itemLabel="5" itemValue="5" />
+                        <f:selectItem itemLabel="6" itemValue="6" />
+                        <f:selectItem itemLabel="7" itemValue="7" />
+                        <f:selectItem itemLabel="8" itemValue="8" />
+                        <f:selectItem itemLabel="9" itemValue="9" />
+                        <f:selectItem itemLabel="10" itemValue="10" />
+                    </h:selectOneMenu>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2">
+                    <h:commandButton action="#{rateArtifactLecturerBean.postRating()}" value="Submit" class="btn btn-default"/>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

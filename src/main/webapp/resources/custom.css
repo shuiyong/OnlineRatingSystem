@@ -6,3 +6,11 @@
 .ui-button .ui-button-text {
     padding: 0;
 }
+
+/*Panel tabs*/
+.reviewTabs .nav-tabs {
+    position: relative;
+    bottom: 10px;
+    clear:both;
+    border-bottom: 1px solid transparent;
+}

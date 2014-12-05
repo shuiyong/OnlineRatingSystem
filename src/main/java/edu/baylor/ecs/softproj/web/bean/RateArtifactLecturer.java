@@ -2,6 +2,7 @@ package edu.baylor.ecs.softproj.web.bean;
 
 import edu.baylor.ecs.softproj.model.Artifact;
 import edu.baylor.ecs.softproj.model.RPMAssignment;
+import edu.baylor.ecs.softproj.model.ReviewAssignment;
 import edu.baylor.ecs.softproj.service.ReviewService;
 import edu.baylor.ecs.softproj.service.UserService;
 import edu.baylor.ecs.softproj.service.ArtifactService;
@@ -11,6 +12,8 @@ import edu.baylor.ecs.softproj.service.TeamService;
 import edu.baylor.ecs.softproj.web.helper.FacesMessages;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +24,9 @@ import org.springframework.stereotype.Controller;
  *
  * @author Petr Smrcek <Petr_Smrcek@baylor.edu>
  */
-@Controller("rateartifactBean")
-@Scope("request")
-public class RateArtifact {
+@Controller("rateArtifactLecturerBean")
+@Scope("session")
+public class RateArtifactLecturer {
     @Autowired
     public ReviewService reviewService;
     
@@ -45,7 +48,9 @@ public class RateArtifact {
     public StreamedContent file;
     
     private int rpmAssignmentId;
-    private int rating;
+    private int artifactRating;
+    private int rpmRating;
+    private Map<Integer, String> reviewerRating = new HashMap<Integer, String>();
 
     public StreamedContent getArtifactFile(Integer artifactId) throws IOException {
         Artifact a = artifactService.findById(artifactId);
@@ -66,12 +71,28 @@ public class RateArtifact {
         return rpmAssignmentService.getById(rpmAssignmentId);
     }
 
-    public int getRating() {
-        return rating;
+    public Map<Integer, String> getReviewerRating() {
+        return reviewerRating;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setReviewerRating(Map<Integer, String> reviewerRating) {
+        this.reviewerRating = reviewerRating;
+    }
+
+    public int getArtifactRating() {
+        return artifactRating;
+    }
+
+    public void setArtifactRating(int artifactRating) {
+        this.artifactRating = artifactRating;
+    }
+
+    public int getRpmRating() {
+        return rpmRating;
+    }
+
+    public void setRpmRating(int rpmRating) {
+        this.rpmRating = rpmRating;
     }
 
     public void setFile(StreamedContent file) {
@@ -80,9 +101,13 @@ public class RateArtifact {
     
     public String postRating(){        
         RPMAssignment ass = getRpmAssignment();
-        ass.setRPMToArtifactRating(rating);
+        ass.setLecturerToRPMRating(rpmRating);
+        ass.getArtifact().setLecturerRating(artifactRating);
+        for (ReviewAssignment ra: ass.getReviewAssignments()) {
+            ra.setLecturerToReviewRating(Integer.parseInt(reviewerRating.get(ra.getId())));
+        }
         rpmAssignmentService.update(ass);
-        FacesMessages.addInfoMessage("Rating submitted.");
+        FacesMessages.addInfoMessage("Ratings submitted.");
         return "/dashboard.xhtml?faces-redirect=true";
     }
     

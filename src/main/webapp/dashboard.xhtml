@@ -41,12 +41,11 @@
                                 <p>Unrated artifacts:</p>
                                 <ul class="list-group">
                                     <c:forEach items="#{dashboardBean.getLecturerUnratedRpmAssignments(course)}" var="rpmAssignment">
-                                        <li class="list-group-item">#{rpmAssignment.artifact.name}</li>
+                                        <li class="list-group-item">
+                                            <a href="/rateArtifactLecturer.xhtml?rpmAssignmentId=#{rpmAssignment.id}">#{rpmAssignment.artifact.name}</a>
+                                        </li>
                                     </c:forEach>
                                 </ul>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{dashboardBean.getLecturerUnratedRpmAssignments(course).size() == 0}">
-                                <p>Currently there are no artifacts to rate.</p>
                             </ui:fragment>
                         </ui:fragment>
                             
@@ -129,7 +128,7 @@
                                 <p>Unrated artifacts:</p>
                                 <ul class="list-group">
                                     <c:forEach items="#{dashboardBean.getUnratedRpmAssignments(teamMember.activeRPM)}" var="rpmAssignment">
-                                        <li class="list-group-item"><a href="/rateArtifact.xhtml?rpmAssignmentId=#{rpmAssignment.id}">#{rpmAssignment.artifact.name}</a></li>
+                                        <li class="list-group-item"><a href="/rateArtifactRpm.xhtml?rpmAssignmentId=#{rpmAssignment.id}">#{rpmAssignment.artifact.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </ui:fragment>

@@ -1,5 +1,6 @@
 package edu.baylor.ecs.softproj.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
@@ -66,6 +67,18 @@ public class Review extends AbstractEntity {
 
     public Date getSubmitted() {
         return submitted;
+    }
+
+    public String getSubmittedShort() {
+        return new SimpleDateFormat("MM/dd HH:mm:ss").format(submitted);
+    }
+    
+    public Set<TeamMember> getCanBeViewedBy() {
+        return canBeViewedBy;
+    }
+
+    public void setCanBeViewedBy(Set<TeamMember> canBeViewedBy) {
+        this.canBeViewedBy = canBeViewedBy;
     }
 
     public Integer getReviewerToArtifactRating() {
